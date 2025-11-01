@@ -1,88 +1,18 @@
-/*Container and Layout*/
+/* ==============================
+   GLOBAL LAYOUT
+================================= */
 .audit {
   display: flex;
   gap: 4px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   box-sizing: border-box;
-}
-
-/* Sidebar Container */
-.checklist-sidebar {
   background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  font-family: 'Segoe UI', sans-serif;
-  padding: 20px;
-  padding-top: 170px;
-  transition: all 0.3s ease-in-out;
+  min-height: 100vh;
 }
-
-/* Checklist Item */
-.checklist-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  background: #ffffff;
-  border: 1.5px solid #ccd4d3;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: #222;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-/* Hover Effect */
-.checklist-item:hover {
-  background-color: #e6fff7;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 8px rgba(0, 198, 162, 0.3);
-}
-
-/* Active Item */
-.checklist-item.active {
-  color: black;
-  padding-left: 5px;
-  border-color: #a1a7a6;
-}
-
-/* Dim Non-Active Items */
-.checklist-sidebar.dimmed .checklist-item:not(.active) {
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-}
-
-/* Circle Indicator */
-.circle {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid #4f524f;
-  background-color: #ffffff;
-  margin-right: 12px;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-
-
-/* Label Text */
-.label {
-    flex-grow: 1;
-    margin-right: 100px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-
-/* Menu Button (⋮ icon) */
 .menu {
   background: transparent;
   border: none;
-  color: #999;
+  color: #fff;
   font-size: 18px;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -93,627 +23,432 @@
 }
 
 
-
-
-
-/* header */
-.audit-header {
+/* ==============================
+   MAIN CONTAINER
+================================= */
+.audit-container {
+  flex: 1;
   background: #ffffff;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
+  margin: 16px 16px 16px 0;
+  box-shadow: 0 2px 8px rgba(224, 54, 54, 0.05);
+}
+
+/* ==============================
+   HEADER SECTION
+================================= */
+.audit-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
 }
-
-.audit-header-content {
+.audit-header-content{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+
+.audit-icon svg{
+      background: #32e58b;
+        padding: 6px;
+        border-radius: 50%;
+        color: #ffffff;
+        width: 32px;
+        height: 32px;
 }
 
-.audit-header-left {
+}
+.audit-header-left{
   display: flex;
-  align-items: center;
-  gap: 12px;
 }
-
-.audit-icon svg {
-  background: #4dd4ac;
-  padding: 6px;
-  border-radius: 50%;
-  color: white;
-  width: 32px;
-  height: 32px;
-}
-
-.audit-text {
+.audit-header h2 {
+  margin: 0;
   display: flex;
-  flex-direction: column;
+  font-size: 1.5rem;
+  color: #0b1426;
 }
 
+.audit-header p {
+  margin: 4px 0 0 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
 .audit-title {
-  color: black;
-  font-size: 1.4rem;
+  font-size: 22px;
   font-weight: 600;
+  color: #111827;
   margin: 0;
 }
 
 .audit-subtitle {
-  color: #b3b3b3;
-  font-size: 0.9rem;
-  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 2px;
 }
 
-.audit-header-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.dashboard-btn {
+.audit-dashboard-btn {
     display: flex;
-    align-items: center;
+    align-items:center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.87);
-    color: #4ee1c1;
-    border: 1px solid;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-weight: 500;
+    background: #f9fafb;
+    border: 1px solid #5af292;
+    border-radius: 10px;
+    padding: 10px 18px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    color: #6bfb6f;
+    transition: background 0.3s ease;
 }
 
-.dashboard-btn:hover {
-  background: #3cbf98;
+.audit-dashboard-btn:hover {
+  background: #f3f4f6;
 }
 
-.user-avatar {
-  width: 38px;
-  height: 38px;
+.audit-user-avatar {
+  width: 40;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid black;
 }
 
+/* ==============================
+   PROGRESS BAR
+================================= */
 .progress-bar {
-  width: 100%;
-  font-family: "Segoe UI", sans-serif;
+  margin-bottom: 28px;
 }
 
 .line {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-
-.step-text {
-  color: black;
-  font-weight: 500;
-}
-
-.progress-text {
-  color: #999;
-  padding-right: 1%;
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 
 .bar-background {
   width: 100%;
   height: 8px;
-  background-color: #e5e5e5;
-  border-radius: 10px;
+  background: #e5e7eb;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .bar-fill {
-  height: 100%;
-  background: linear-gradient(to right, #00c6a2, #4ee1c1);
-  border-radius: 10px;
-  transition: width 0.3s ease-in-out;
+  height: 8px;
+  background: linear-gradient(90deg, #4f46e5, #60a5fa);
+  width: 17%; /* example width, can be dynamic */
+  border-radius: 6px;
+  transition: width 0.3s ease;
 }
 
-
-
-/*Header Buttons*/
-
+/* ==============================
+   STATS BUTTON ROW
+================================= */
 .button-container {
-  display: flex;
-  gap: 16px;
   justify-content: center;
-  padding: 12px 0px;
-  font-family: "Inter", sans-serif;
-}
-
-.stat-btn {
-  display: flex;
   align-items: center;
-  gap: 8px;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
-.stat-btn:hover {
-  transform: translateY(-2px);
+/* ==============================
+   SELECT AUDITORS SECTION
+================================= */
+.Select-Auditors {
+  margin-top: 16px;
 }
 
-/* Text styling inside button */
-.text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.5;
+.Select-Auditors-Container {
+  background: #fff;
 }
 
-.text span:first-child {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.text span:last-child {
-  font-size: 13px;
-  color: #333;
-}
-
-/* Individual button colors*/
-.auditors {
-  background-color: #e6f8f0;
-  color: #16a34a;
-}
-
-.areas {
-  background-color: #e6f0ff;
-  color: #2563eb;
-}
-
-.standards {
-  background-color: #f3e8ff;
-  color: #7c3aed;
-}
-
-.procedures {
-  background-color: #fff3e6;
-  color: #f97316;
-}
-
-.records {
-  background-color: #e6fdf9;
-  color: #0d9488;
-}
-
-
-
-
-/*Select Auditors Section */
-.Auditors-center {
-  justify-content: center;
-  background-color: none;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(167, 65, 65, 0.05);
-}
 .Auditors-center h2 {
-    font-size: 1.25rem;
+font-size: 20px;
     font-weight: 600;
-    margin-bottom: -0.75rem;
-    color: black;
+    margin-bottom: 4px;
     text-align: justify;
 }
+
 .Auditors-center p {
-    font-size: 17px;
-    color: hsl(240, 3%, 66%);
+  color: #6b7280;
+  font-size: 14px;
     text-align: justify;
+  margin-bottom: 20px;
 }
 
-
-/* Date */
+/* ==============================
+   DATE PICKER
+================================= */
 .date {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  font-family: Arial, sans-serif;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 
 .Audit-date {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-}
-
-.Audit-date svg {
-  width: 20px;
-  height: 20px;
-  stroke: #38d08f; /* green color */
-}
-
-.date button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.date button svg {
-  width: 18px;
-  height: 18px;
-  stroke: #222;
-}
-
-.date button:hover {
-  background-color: #f0fff4;
-  border-color: #38d08f;
-}
-
-.clear-date-btn {
-  border: 1px solid #e5e7eb;
-  background: #fff;
+  gap: 8px;
   color: #374151;
-  padding: 8px 10px;
-  border-radius: 8px;
-  font-size: 13px;
+  font-weight: 500;
 }
 
-/* Delete All button styling */
-.delete-all-btn {
-  border: 1px solid #f87171;
-  background: #fff;
-  color: #b91c1c;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-}
 
-.calendar-button {
-  display: flex;
-  align-items: center;
-}
-
-/* Search Input Section */
-.Search {
-  display: flex;
-  align-items: center;
+/* ==============================
+   SEARCH + FILTERS
+================================= */
+.Search-Filters-Wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
 }
 
 .Search-btn {
   display: flex;
   align-items: center;
   gap: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
   background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 8px 14px;
-  cursor: text;
-  transition: all 0.2s ease-in-out;
-  color: #2c3e50;
-  width: 287px; 
-}
-
-.Search-btn:hover {
-  background: #f1f3f5;
-}
-
-.Search-btn svg {
-  width: 18px;
-  height: 18px;
-  color: #2c3e50;
 }
 
 .Search-btn input {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  color: #2c3e50;
-  width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 200px;
+    color: #111827;
+    background: white;
+    
 }
 
-/* Filters */
-.Filters {
-  display: flex;
-  gap: 1rem;
-}
-
-/* First Filters */
+/* ==============================
+   DROPDOWN FILTERS
+================================= */
 .Filters {
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.Filters .dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.Filters button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 8px 12px;
-  background-color: #fff;
-  cursor: pointer;
-  min-width: 180px;
-  font-size: 14px;
-  color: #0b0909;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.Filters button:hover {
-  background-color: #f7f9fb;
-  border-color: #ccc;
-}
-
-.Filters button svg:last-child {
-  transition: transform 0.2s ease;
-}
-
-.Filters ul {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  margin: 0;
-  padding: 6px 0;
-  width: 180px;
-  list-style: none;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  animation: dropdownFade 0.2s ease;
-}
-
-.Filters ul li {
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-size: 14px;
-  color: #333;
-  border-radius: 6px;
-}
-
-.Filters ul li:hover {
-  background-color: #f2f2f2;
-}
-
-.Filters ul li.selected {
-  background-color: #f5f8fa;
-  color: #007bff;
-  font-weight: 500;
-}
-
-.Filters ul li:active {
-  background-color: #1e1d1d;
-  color: #fff;
-}
-
-.dropdown-menu svg {
-  stroke: #007bff;
-}
-
-/* --- Dropdown Animation --- */
-@keyframes dropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Second filter*/
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.filter-btn,
-.dropdown > button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px 12px;
-  background-color: #fff;
-  cursor: pointer;
-  min-width: 180px;
-  font-size: 14px;
-  color: #333;
-  transition: all 0.2s ease;
-}
-
-.filter-btn:hover,
-.dropdown > button:hover {
-  background-color: #f7f9fb;
-  border-color: #ccc;
+  gap: 12px;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  width: 100%;
-  background-color: #fff;
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 4px 0;
-  margin: 0;
   list-style: none;
-  z-index: 100;
-  animation: dropdownFade 0.2s ease;
+  padding: 6px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  width: 180px;
+  margin-top: 4px;
+  z-index: 10;
 }
 
-.dropdown-menu li {
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-menu li:hover {
-  background-color: #f2f2f2;
-}
-
-.dropdown-menu li.selected {
-  background-color: #f5f8fa;
-  color: #007bff;
-}
-
-.dropdown-menu svg {
-  stroke: #007bff;
-}
-
-/* --- Animation --- */
-@keyframes dropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Wrapper for Search and Filters */
-.Search-Filters-Wrapper {
-     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
+/* ==============================
+   AUDITOR CARDS
+================================= */
 .Auditor-Cards {
-  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  justify-content: inherit;
+  gap: 12px;
 }
 
 .Auditor-Card {
+  position: relative;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 15px;
-  width: 240px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  width: 260px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+.Auditor-Card:hover {
+  border-color: #38d08f;
+}
+
+.Auditor-Card.selected {
+  border-color: #38d08f;
+  background: #f9fefb;
+}
+
+/* ✅ Green Check Icon — appears when selected */
+.check-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #38d08f;
+}
+
+/* Initials */
 .initials {
-  background-color: #00c6a2;
+  width: 40px;
+  height: 40px;
+  background: #38d08f;
   color: white;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 16px;
+  margin-right: 12px;
 }
 
+/* Details */
 .auditor-details {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .auditor-name {
   font-weight: 600;
-  font-size: 16px;
-  color: black;
+  color: #333;
 }
 
 .auditor-role {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
+  font-size: 13px;
+  color: #777;
 }
 
 .auditor-standards {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  margin-top: 4px;
 }
 
 .standard-tag {
-  background-color: #a1d8bc82;;
-  padding: 4px 8px;
-  border-radius: 6px;
+  background: #e6f9ef;
+  color: #38d08f;
   font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-right: 4px;
 }
 
-/* Footer */
-.footer {
-  margin-top: 50px;
-  padding: 16px;
-  border-top: 1px solid #e5e7eb;
-  background-color: #f9fafb;
+/* ==============================
+   FOOTER BUTTONS
+================================= */
+.audit-footer {
+    gap: 6px;
+    margin-top: 35px;
+    display: flex;
+    justify-content: right;
+    border: 1px solid #f3f4f6;
+
+}
+
+.audit-footer-btn {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.footer-btn {
-  background-color: #ffffff;
-  border: 1px solid #10b981;
-  color: #059669;
-  border-radius: 15px;
-  padding: 6px 30px;
-  font-size: 14px;
-  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #69f797;
+  padding: 10px 18px;
+  border-radius: 10px;
   cursor: pointer;
+  color: #37cf6f;
+  font-weight: 500;
   transition: all 0.2s ease;
 }
-.footer-btn svg{
-  margin: 0;
-}
 
-.preview-btn:hover {
-  background-color: #ecfdf5;
+.footer-btn:hover {
+  background: #f3f4f6;
 }
 
 .next-btn {
-  background-color: #10b981;
-  color: #ffffff;
-  border-radius: 15px;
-  padding: 10px 30px;
-  font-size: 14px;
+  background: #1cdb72;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  cursor: pointer;
   font-weight: 500;
 }
 
 .next-btn:hover {
-  background-color: #059669;
+  background: #5de853;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+================================= */
+
+/* Tablets landscape / small laptops */
+@media (max-width: 1200px) {
+  .Auditor-Card {
+    width: 220px;
+  }
+  .Search-btn input {
+    width: 160px;
+  }
+}
+
+/* Tablets portrait */
+@media (max-width: 992px) {
+  .audit {
+    flex-direction: column;
+  }
+  .audit-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .Auditor-Cards {
+    justify-content: center;
+  }
+  .Auditor-Card {
+    width: 45%;
+  }
+}
+
+/* Large phones */
+@media (max-width: 768px) {
+  .audit-header {
+    padding: 12px;
+  }
+  .audit-title {
+    font-size: 18px;
+  }
+  .Auditor-Card {
+    width: 100%;
+  }
+  .Search-btn input {
+    width: 140px;
+  }
+  .audit-footer {
+    justify-content: center;
+  }
+  .button-container {
+    flex-direction: column;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .audit-container {
+    margin: 8px;
+  }
+  .audit-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .Search-btn input {
+    width: 120px;
+  }
+  .Audit-date, .date {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .Auditor-Card {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .initials {
+    margin-bottom: 8px;
+  }
 }

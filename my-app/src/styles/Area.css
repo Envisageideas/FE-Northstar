@@ -1,0 +1,188 @@
+/* Container */
+.purchasing-container {
+  background-color: #f3f7ff;
+  border-radius: 10px;
+  padding: 20px 25px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.purchasing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-left h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1d3557;
+}
+.assignments-btn {
+  background-color: #e8f0ff;
+  color: #2b67f6;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: default;
+}
+
+/* Grid Layout */
+.auditor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* Card */
+.auditor-card {
+  display: flex;
+  align-items: flex-start;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.auditor-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Avatar */
+.auditor-avatar {
+  background-color: #00b87c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px;
+}
+
+/* Info */
+.auditor-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #222;
+}
+
+.auditor-info p {
+  margin: 4px 0 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Tags */
+.auditor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background-color: #f6f2ff;
+  color: #7b36f4;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 4px 10px;
+  box-shadow: 0 0 3px rgba(123, 54, 244, 0.1);
+}
+
+
+/* ===== Responsive Breakpoints ===== */
+/* 📱 Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+.purchasing-container {
+padding: 15px;
+}
+
+.header-left h2 {
+font-size: 18px;
+}
+
+.assignments-btn {
+font-size: 13px;
+padding: 5px 10px;
+}
+
+.auditor-grid {
+grid-template-columns: 1fr;
+gap: 14px;
+}
+
+.auditor-card {
+flex-direction: column;
+align-items: flex-start;
+padding: 14px;
+}
+
+.auditor-avatar {
+width: 38px;
+height: 38px;
+margin-bottom: 8px;
+}
+
+.auditor-info h3 {
+font-size: 15px;
+}
+
+.auditor-info p {
+font-size: 13px;
+}
+
+.tag {
+font-size: 11px;
+}
+}
+
+/* 📱 Medium Devices (tablets up to 768px) */
+@media (max-width: 768px) {
+.purchasing-header {
+flex-direction: column;
+align-items: flex-start;
+}
+
+.auditor-grid {
+grid-template-columns: 1fr;
+}
+
+.auditor-card {
+flex-direction: row;
+}
+
+.header-left h2 {
+font-size: 19px;
+}
+}
+
+/* 💻 Large Tablets & Small Laptops (up to 1024px) */
+@media (max-width: 1024px) {
+.auditor-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.purchasing-container {
+padding: 18px;
+}
+}
+
+/* 🖥️ Desktop (default) */
+@media (min-width: 1201px) {
+.auditor-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+}

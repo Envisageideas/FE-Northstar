@@ -1,26 +1,24 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    font-synthesis: none;
+    width: 100%
 }
 
 body {
     margin: 0;
     padding: 0;
-    display: flex;
+    
     background: white;
-    height: 100%;
-    width: 100%;
+    
+  
 
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #e3eaef;
     background-color: #ffffff;
@@ -31,4 +29,4 @@ body {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

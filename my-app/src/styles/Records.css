@@ -1,104 +1,15 @@
 /*Container and Layout*/
-.audit {
+.Records {
   display: flex;
-  gap: 4px;
-  font-family: 'Arial', sans-serif;
-  box-sizing: border-box;
+  background-color: #f9fafb;
+  font-family: "Inter", sans-serif;
+  color: #1f2937;
+  /* min-height: 100vh; */
 }
-.checklist-sidebar {
-    width: 260px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 20px 16px;
-    background: #fff;
-    border: 1px solid #e8e2e2;
-    border-radius: 10px;
-    font-family: "Inter", sans-serif;
-}
-
-.checklist-item {
-    display: flex;
-    align-items: center;
-    text-align: justify;
-    justify-content: space-between;
-    border-radius: 10px;
-    border: 1px solid #d9d1d1;
-    padding: 10px 7px;
-}
-
-.checklist-item:hover {
-  background: #b2f1bc;
-}
-
-.circle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background-color: #e7f9f4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.completed .circle {
-  background-color: #3fd1aa;
-}
-
-.label {
-  flex: 1;
-  font-size: 15px;
-  color: #6c7583;
-  font-weight: 500;
-  margin-left: 10px;
-}
-
-.count {
-
-  color: #a0a5b0;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.circle-outline {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #3fd1aa;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.summary-label {
-  font-size: 15px;
-  color: #2b2b2b;
-  font-weight: 500;
-}
-
-
-
-/* Menu Button (⋮ icon)
-.menu {
-  background: transparent;
-  border: none;
-  color: #999;
-  font-size: 18px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.menu:hover {
-  color: #333;
-} */
 
 
 /* header */
-.audit-header {
+.Records-header {
   background: #ffffff;
   padding: 1.5rem 2rem;
   border-radius: 12px;
@@ -107,20 +18,20 @@
   align-items: center;
 }
 
-.audit-header-content {
+.Records-header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.audit-header-left {
+.Records-header-left {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.audit-icon svg {
+.Records-icon svg {
   background: #4dd4ac;
   padding: 6px;
   border-radius: 50%;
@@ -129,31 +40,31 @@
   height: 32px;
 }
 
-.audit-text {
+.Records-text {
   display: flex;
   flex-direction: column;
 }
 
-.audit-title {
+.Records-title {
   color: black;
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0;
 }
 
-.audit-subtitle {
+.Records-subtitle {
   color: #b3b3b3;
   font-size: 0.9rem;
   margin: 0;
 }
 
-.audit-header-right {
+.Records-header-right {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.dashboard-btn {
+.Records-dashboard-btn {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -167,24 +78,24 @@
     transition: all 0.3s ease;
 }
 
-.dashboard-btn:hover {
+.Records-dashboard-btn:hover {
   background: #3cbf98;
 }
 
-.user-avatar {
+.Records-user-avatar {
   width: 38px;
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid black;
+  border: 2px solid white;
 }
 
-.progress-bar {
+.Records-progress-bar {
   width: 100%;
   font-family: "Segoe UI", sans-serif;
 }
 
-.line {
+.Records-line {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -192,17 +103,17 @@
   margin-bottom: 4px;
 }
 
-.step-text {
+.Records-step-text {
   color: black;
   font-weight: 500;
 }
 
-.progress-text {
+.Records-progress-text {
   color: #999;
   padding-right: 1%;
 }
 
-.bar-background {
+.Records-bar-background {
   width: 100%;
   height: 8px;
   background-color: #e5e5e5;
@@ -210,91 +121,14 @@
   overflow: hidden;
 }
 
-.bar-fill {
+.Records-bar-fill {
   height: 100%;
   background: linear-gradient(to right, #00c6a2, #4ee1c1);
   border-radius: 10px;
   transition: width 0.3s ease-in-out;
 }
-
-
-/*Summary Buttons*/
-.button-container {
-  display: flex;
-  gap: 16px;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 12px 260px;
-  font-family: "Inter", sans-serif;
-}
-
-/* Common Button Styles */
-.stat-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 18px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-.stat-btn:hover {
-  transform: translateY(-2px);
-}
-
-/* Text styling inside button */
-.text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.text span:first-child {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.text span:last-child {
-  font-size: 13px;
-  color: #333;
-}
-
-/* Individual button colors*/
-.auditors {
-  background-color: #e6f8f0;
-  color: #16a34a;
-}
-
-.areas {
-  background-color: #e6f0ff;
-  color: #2563eb;
-}
-
-.standards {
-  background-color: #f3e8ff;
-  color: #7c3aed;
-}
-
-.procedures {
-  background-color: #fff3e6;
-  color: #f97316;
-}
-
-.records {
-  background-color: #e6fdf9;
-  color: #0d9488;
-}
-
-
-
-
 /* Global container */
-.icon-text {
+.Records-icon-text {
   background-color: #ffffff;
   padding: 10px 0;
   font-family: "Inter", sans-serif;
@@ -303,14 +137,14 @@
 }
 
 /* Heading + description */
-.icon-text h2 {
+.Records-icon-text h2 {
   font-size: 1.8rem;
   font-weight: 700;
   color: #1e1e1e;
   text-align: justify;
 }
 
-.icon-text p {
+.Records-icon-text p {
   color: #666;
   font-size: 0.95rem;
   margin-top: -20px;
@@ -318,7 +152,7 @@
 }
 
 /* --- Audit Areas header --- */
-.Audit-Areas {
+.Records-Areas {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -326,19 +160,19 @@
   justify-content: space-between;
 }
 
-.Audit-Areas .icon svg {
+.Records-Areas .icon svg {
     width: 22px;
     height: 22px;
     color: #16dcb1;
 }
 
-.Audit-Areas h3 {
+.Records-Areas h3 {
   font-size: 1.2rem;
   font-weight: 600;
   color: #222;
 }
 
-.Audit-Areas span {
+.Records-Areas span {
     background-color: #f9f9f9;
     color: #4be9c7fa;
     font-size: 0.85rem;
@@ -348,7 +182,7 @@
 }
 
 /* --- Search box --- */
-.search-upload-container {
+.Records-search {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -358,17 +192,17 @@
 }
 
 /* Search box styling */
-.search-box {
+.Records-search-box {
   position: relative;
   width: 70%; /* adjust to make it smaller/larger */
 }
 
-.text {
+.Records-search-text {
   position: relative;
   width: 100%;
 }
 
-.search-icon {
+.Records-search-icon {
   position: absolute;
   left: 14px;
   top: 50%;
@@ -379,7 +213,7 @@
   pointer-events: none;
 }
 
-.search-input {
+.Records-search-input {
   width: 100%;
   padding: 10px 16px 10px 40px;
   border: 1px solid #dcdcdc;
@@ -391,7 +225,7 @@
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.search-input:focus {
+.Records-search-input:focus {
   border-color: #00c37a;
   box-shadow: 0 0 4px rgba(0, 195, 122, 0.2);
 }
@@ -424,16 +258,14 @@
 
 
 /* Container for standards grid */
-.standards-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.Records-container {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
 }
 
-/* Each card */
-.standard-card {
+.Records-card {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border: 1px solid #4ee1c1;
     border-radius: 14px;
@@ -442,23 +274,30 @@
     cursor: pointer;
 }
 
-/* Hover and active states */
-.standard-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(155, 93, 229, 0.4);
-}
-
-.standard-card.selected {
-      border-color: #4ee1c1;
+.Records-card.selected {
+    border-color: #4ee1c1;
     background-color: #4ee1c114;
 }
-
-/* Text inside card */
-.standard-content {
-  flex-grow: 1;
+/* ✅ Top-right check icon */
+.Records-check-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #090f0d;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-.standard-content h3 {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.Records-content h3 {
     font-size: 18px;
     font-weight: 600;
     color: black;
@@ -466,255 +305,270 @@
     text-align: justify;
 }
 
-.standard-content p {
+.Records-content p {
   font-size: 14px;
   color: black;
   margin: 0;
   text-align: justify;
 }
 
-/* Checkmark icon */
-.check-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-}
 
-/* --- Footer buttons --- */
-.footer {
+/* footer */
+.Records-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3rem;
-  flex-wrap: wrap;
-  gap: 1rem;
+  padding: 16px 24px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
 }
 
-.footer button {
+/* ---------- Back Button ---------- */
+.back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 12px 26px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s 
+ease;
+}
+
+.back:hover {
+  background-color: #e6e6e6;
+}
+
+/* ---------- Right Side Footer ---------- */
+.Records-right-footer {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
+  gap: 10px;
 }
 
-/* Back button */
-.footer .back {
-  border: 1px solid #d1d5db;
-  background-color: #fff;
-  color: #111;
-  padding: 8px 18px;
-  border-radius: 8px;
-}
-
-.footer .back:hover {
-  background-color: #f3f4f6;
-}
-
-/* Preview button */
-.footer .Preview {
-    border: 1px solid;
-    background-color: #fff;
-    color: #4ee1c1;
-    padding: 8px 18px;
-    border-radius: 8px;
-}
-
-.footer .Preview:hover {
-  background-color: #bbf7d0;
-}
-
-/* Next Step button */
-.footer .next-button {
-  background-color: #22c55e;
-  color: #fff;
-  padding: 8px 22px;
-  border-radius: 8px;
-}
-
-.footer .next-button:hover {
-  background-color: #16a34a;
-}
-
-/* Right side button group */
-.right-footer {
+/* ---------- Preview Button ---------- */
+.Records-Preview {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  color: #69f797;
+  border: 1px solid #7bfa9d;
+  border-radius: 12px;
+  padding: 10px 21px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.Records-Preview:hover {
+  background-color: #e6e6e6;
+}
 
-/* ----------------------------- */
-/* Responsive styles
-   - 1024px: laptop / small desktop adjustments
-   - 768px: tablet / narrow screens; stack main layout
-   - 480px: mobile optimizations (smaller paddings, fonts, full-width buttons)
-*/
+/* ---------- Next Button ---------- */
+.next-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #4cf289;
+    color: white;
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s 
+ease;
+}
 
-@media (max-width: 1024px) {
-  .checklist-sidebar {
-    width: 220px;
-    padding: 16px;
+.next-button:hover {
+  background-color: #75f4b9;
+}
+
+/* ---------- Icon Styles ---------- */
+.Records-footer svg {
+stroke: #69f797;
+    display: inline-block;
+}
+
+/* ===========================================
+   💻 RESPONSIVE DESIGN — LAPTOPS, TABLETS, MOBILES
+   =========================================== */
+
+/* ✅ Laptop screens (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .Records-header {
+    padding: 1.2rem 1.5rem;
   }
 
-  .button-container {
-    padding: 12px 40px;
-    gap: 12px;
+  .Records-title {
+    font-size: 1.3rem;
+  }
+
+  .Records-container {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
   }
 
   .upload-btn {
-    padding: 10px 36px;
-  }
-
-  .icon-text {
-    padding-right: 50%;
-  }
-
-  .search-box {
-    width: 60%;
-  }
-
-  .search-upload-container {
-    max-width: 900px;
-    margin: 8px auto;
-  }
-
-  .audit-header {
-    padding: 1rem 1.25rem;
+    padding: 10px 60px;
   }
 }
 
-@media (max-width: 768px) {
-  /* Stack columns vertically on smaller screens */
-  .audit {
+/* ✅ Tablet screens (max-width: 992px) */
+@media (max-width: 992px) {
+  .Records {
     flex-direction: column;
-    gap: 12px;
+    padding: 1rem;
   }
 
-  .checklist-sidebar {
-    width: 100%;
-    padding: 14px;
+  /* Header stacks */
+  .Records-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
-  .button-container {
-    padding: 12px 16px;
-    justify-content: center;
+  .Records-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .Records-header-right {
+    justify-content: flex-start;
     flex-wrap: wrap;
   }
 
-  .search-upload-container {
+  /* Search area becomes vertical */
+  .Records-search {
     flex-direction: column;
-    gap: 10px;
     align-items: stretch;
+    gap: 0.8rem;
     width: 100%;
-    padding: 0 12px;
+    padding: 0 10px;
   }
 
-  .search-box {
+  .Records-search-box {
     width: 100%;
   }
 
   .upload-btn {
-    padding: 10px 16px;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  /* Cards adjust */
+  .Records-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Footer adjustments */
+  .Records-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .Records-right-footer {
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .Records-footer button {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ✅ Mobile screens (max-width: 600px) */
+@media (max-width: 600px) {
+  .Records {
+    padding: 0.8rem;
+  }
+
+  /* Header */
+  .Records-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .Records-title {
+    font-size: 1.1rem;
+  }
+
+  .Records-subtitle {
+    font-size: 0.85rem;
+  }
+
+  /* Search box and upload */
+  .Records-search {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .Records-search-box {
+    width: 100%;
+  }
+
+  .upload-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  /* Cards become single column */
+  .Records-container {
+    grid-template-columns: 1fr;
+  }
+
+  .Records-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .Records-content h3 {
+    font-size: 16px;
+  }
+
+  .Records-content p {
+    font-size: 13px;
+  }
+
+  /* Footer becomes vertical */
+  .Records-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .Records-right-footer {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .back,
+  .Records-Preview,
+  .next-button {
     width: 100%;
     justify-content: center;
   }
 
-  .icon-text {
-    padding-right: 0;
-  }
-
-  .icon-text h2 {
-    font-size: 1.4rem;
-  }
-
-  .audit-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .audit-header-right {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-
-  .stat-btn {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-
-  .circle,
-  .count {
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-  }
-
-  .standard-card {
-    padding: 10px 14px;
+  /* Avatar smaller */
+  .Records-user-avatar {
+    width: 34px;
+    height: 34px;
   }
 }
-
-@media (max-width: 480px) {
-  .audit-header-left .audit-title {
-    font-size: 1.1rem;
-  }
-
-  .icon-text h2 {
-    font-size: 1.2rem;
-  }
-
-  .label {
-    font-size: 14px;
-  }
-
-  .search-input {
-    padding: 8px 12px 8px 36px;
-    font-size: 13px;
-  }
-
-  .upload-btn {
-    padding: 8px 12px;
-  }
-
-  .button-container {
-    gap: 8px;
-    padding: 8px 12px;
-  }
-
-  .stat-btn {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-
-  .circle,
-  .count {
-    width: 20px;
-    height: 20px;
-  }
-
-  .check-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .footer {
-    gap: 8px;
-  }
-
-  .icon-text p {
-    margin-top: 0;
-  }
-
-  /* Ensure summary buttons remain usable on very small screens */
-  .button-container .stat-btn {
-    min-width: 0;
-  }
-}
-

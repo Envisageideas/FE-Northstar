@@ -1,0 +1,164 @@
+.summary-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-family: "Poppins", sans-serif;
+}
+
+.summary-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0px 20px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.summary-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.count {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 15px 6px;
+}
+
+.text {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
+
+/* Hover Effect */
+.summary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Color Variants */
+.summary-btn.green {
+  border-color: #38d08f40;
+  background: linear-gradient(135deg, #38d08f1a, #38d08f0d);
+}
+.summary-btn.green svg,
+.summary-btn.green .count {
+  color: #38d08f;
+  stroke: #38d08f;
+}
+
+.summary-btn.blue {
+  border-color: #3b82f640;
+  background: linear-gradient(135deg, #3b82f61a, #3b82f60d);
+}
+.summary-btn.blue svg,
+.summary-btn.blue .count {
+  color: #3b82f6;
+  stroke: #3b82f6;
+}
+
+.summary-btn.purple {
+  border-color: #a855f740;
+  background: linear-gradient(135deg, #a855f71a, #a855f70d);
+}
+.summary-btn.purple svg,
+.summary-btn.purple .count {
+  color: #a855f7;
+  stroke: #a855f7;
+}
+
+.summary-btn.orange {
+  border-color: #f9731640;
+  background: linear-gradient(135deg, #f973161a, #f973160d);
+}
+.summary-btn.orange svg,
+.summary-btn.orange .count {
+  color: #f97316;
+  stroke: #f97316;
+}
+
+.summary-btn.teal {
+  border-color: #14b8a640;
+  background: linear-gradient(135deg, #14b8a61a, #14b8a60d);
+}
+.summary-btn.teal svg,
+.summary-btn.teal .count {
+  color: #14b8a6;
+  stroke: #14b8a6;
+}
+
+
+/* ------------------------- */
+/* 📱 RESPONSIVE DESIGN */
+/* ------------------------- */
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .summary-buttons {
+    gap: 14px;
+  }
+
+  .summary-btn {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+}
+
+/* Mobiles (below 768px) */
+@media (max-width: 768px) {
+  .summary-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .summary-btn {
+    flex: 1 1 100%;
+    max-width: 90%;
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .count {
+    font-size: 15px;
+  }
+
+  .text {
+    font-size: 11px;
+  }
+}
+
+/* Small Phones (below 480px) */
+@media (max-width: 480px) {
+  .summary-btn {
+    flex-direction: column;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .label {
+    align-items: center;
+  }
+
+  .count {
+    font-size: 14px;
+  }
+
+  .text {
+    font-size: 10px;
+  }
+}

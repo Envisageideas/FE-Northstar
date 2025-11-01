@@ -1,0 +1,172 @@
+.checklist-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 320px 12px;
+  border-radius: 12px;
+  border: 1px solid #f1f1f1;
+  width: 240px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  font-family: "Inter", sans-serif;
+}
+
+/* Each checklist item */
+.checklist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Active (selected) item */
+.checklist-item.active {
+  border: 1px solid #5be6c0; /* mint green border */
+  box-shadow: 0 0 0 2px rgba(91, 230, 192, 0.2);
+  background: #ffffff;
+}
+
+/* Circle indicator */
+.circle {
+width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #38d08f;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.checklist-item.active .circle {
+  border-color: #37d8ae;
+  box-shadow: 0 0 4px rgba(55, 216, 174, 0.4);
+}
+
+/* Label text */
+.label {
+  flex: 1;
+  font-size: 15px;
+  color: #98a1b0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.checklist-item.active .label {
+  color: #2c2c2c;
+}
+
+/* Menu icon */
+.menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a3a3a3;
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.menu:hover {
+  color: #4f4f4f;
+}
+
+/* Optional hover effect for item */
+.checklist-item:hover {
+  background-color: #f9fafb;
+}
+
+/* ===========================================
+   💻 Responsive Design — Laptop, Tablet, Mobile
+   =========================================== */
+
+/* ✅ Laptop screens (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .checklist-sidebar {
+    width: 200px;
+    padding: 240px 10px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .menu {
+    font-size: 16px;
+  }
+}
+
+/* ✅ Tablet screens (max-width: 992px) */
+@media (max-width: 992px) {
+  .checklist-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px 10px;
+    border-radius: 10px;
+  }
+
+  .checklist-item {
+    width: calc(50% - 10px);
+    margin: 6px 5px;
+    justify-content: flex-start;
+    padding: 10px 12px;
+  }
+
+  .circle {
+    width: 16px;
+    height: 16px;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-right: auto;
+  }
+
+  .menu {
+    font-size: 16px;
+  }
+}
+
+/* ✅ Mobile screens (max-width: 600px) */
+@media (max-width: 600px) {
+  .checklist-sidebar {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: none;
+  }
+
+  .checklist-item {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .circle {
+    width: 14px;
+    height: 14px;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .menu {
+    font-size: 15px;
+  }
+
+  /* Reduce extra padding space */
+  .checklist-sidebar {
+    padding: 10px;
+  }
+}
