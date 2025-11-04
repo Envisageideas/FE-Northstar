@@ -103,7 +103,7 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
   return (
     <div className="audit_1">
       {/* Sidebar */}
-      <Sidebar checklistItems={checklistItems} toggleChecklist={toggleChecklist} />
+      <Sidebar checklistItems={checklistItems} toggleChecklist={toggleChecklist}  />
 
       {/* Main Content */}
       <main className="audit__container" style={{ flex: 1 }}>
@@ -220,7 +220,7 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
             </svg>
           </div>
         </div>
-
+        
         {/* Grid of Audit Areas */}
         <div className="audit__area-grid">
           {filteredAreas.map((area) => {

@@ -1,6 +1,7 @@
 import { useState, useEffect, type FC } from "react";
 import DatePicker from "react-datepicker";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Audit.css";
@@ -87,37 +88,26 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
       prev.map((it) => (it.key === key ? { ...it, isActive: !it.isActive } : it))
     );
   }
-
-  // ✅ Added: Load saved auditor count from localStorage on mount
   useEffect(() => {
-    const savedAuditorCount = localStorage.getItem("selectedAuditorCount");
-    if (savedAuditorCount) setAuditorCount(parseInt(savedAuditorCount));
-  }, []);
-
-  // ✅ Added: Save auditor count to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("selectedAuditorCount", selectedAuditorCount.toString());
-  }, [selectedAuditorCount]);
-
-  // ✅ Load persisted data when Audit component mounts
-  useEffect(() => {
-    const storedAuditors = localStorage.getItem("selectedAuditors");
-    const storedCount = localStorage.getItem("selectedAuditorCount");
-    const storedDate = localStorage.getItem("selectedDate");
-    const storedProgress = localStorage.getItem("localProgress");
-    if (storedAuditors) setSelectedAuditors(JSON.parse(storedAuditors));
-    if (storedCount) setAuditorCount(parseInt(storedCount));
-    if (storedDate) setSelectedDate(new Date(storedDate));
-    if (storedProgress) setLocalProgress(Number(storedProgress));
-  }, []);
-
-  // ✅ Sync date & progress
-  useEffect(() => {
-    if (selectedDate) {
-      localStorage.setItem("selectedDate", selectedDate.toISOString());
+    const savedData = localStorage.getItem("auditData");
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      if (parsed.selectedAuditorCount) setAuditorCount(parsed.selectedAuditorCount);
+      if (parsed.selectedAuditors) setSelectedAuditors(parsed.selectedAuditors);
+      if (parsed.selectedDate) setSelectedDate(new Date(parsed.selectedDate));
+      if (parsed.localProgress) setLocalProgress(parsed.localProgress);
     }
-    localStorage.setItem("localProgress", String(localProgress));
-  }, [selectedDate, localProgress]);
+  }, []);
+
+  useEffect(() => {
+    const dataToSave = {
+      selectedAuditorCount,
+      selectedAuditors,
+      selectedDate,
+      // localProgress,
+    };
+    localStorage.setItem("auditData", JSON.stringify(dataToSave));
+  }, [selectedAuditorCount, selectedAuditors, selectedDate, localProgress]);
 
   function toggleAuditor(name: string) {
     setSelectedAuditors((prev) => {
@@ -155,18 +145,17 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
   const handleNextStep = () => {
     if (selectedDate) {
       const selectedAuditorNames = Object.keys(selectedAuditors);
-      localStorage.setItem("selectedAuditors", JSON.stringify(selectedAuditors));
-      localStorage.setItem("selectedAuditorCount", String(selectedAuditorNames.length));
-      localStorage.setItem("selectedDate", selectedDate.toISOString());
-      navigate("/Areas", {
-        state: {
+      const dataToPass = {          
           selectedAuditorNames,
           selectedDate,
           selectedAuditorCount: selectedAuditorNames.length,
-          checklistItems,
-        },
-      });
-
+          checklistItems,};
+          localStorage.setItem("auditData", JSON.stringify({
+            ...dataToPass,
+            selectedAuditors,
+            localProgress
+          }));
+      navigate("/Areas", { state: {selectedAuditors, selectedAuditorCount, selectedDate }});
     } else {
       toast.error("Please select a date");
       console.log("Date missing");
@@ -190,6 +179,9 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
       a.standards.join(" ").toLowerCase().includes(s)
     );
   });
+  
+const { state } = useLocation();
+console.log(state?.selectedAuditors);
 
   return (
     <div className="audit">
