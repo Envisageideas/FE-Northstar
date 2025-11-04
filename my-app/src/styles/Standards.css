@@ -23,20 +23,56 @@
   width: 100%;
 }
 
+/* Container: aligns icon + text side-by-side */
 .audit_Standards-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
+  padding: 12px 0;
 }
 
-.audit_Standards-icon svg {
-  background: #4dd4ac;
-  padding: 6px;
-  border-radius: 50%;
-  color: white;
-  width: 32px;
-  height: 32px;
+/* Icon container */
+.audit_Standards-icon {
+  width: 55px;
+  height: 55px;
+  background-color: #7ffa8d; /* light blue */
+  color: #0f766e; /* blue icon color */
+  border-radius: 16px; /* rounded square */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* prevents resizing */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
+
+/* SVG inside icon */
+.audit_Standards-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: white;
+  transition: stroke 0.3s ease;
+}
+
+/* Title styling */
+.audit_Standards-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1e293b; /* dark slate */
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Subtitle styling */
+.audit_Standards-subtitle {
+  font-size: 1rem;
+  color: #64748b; /* subtle gray */
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+
 
 .audit_Standards-text {
   display: flex;
@@ -141,21 +177,20 @@
   font-size: 1.8rem;
   font-weight: 700;
   color: #1e1e1e;
-  padding-right: -46px;
 }
 
 .audit_Standards-text p {
   color: #666;
   font-size: 0.95rem;
-  margin-top: -20px;
 }
 
-/* --- Audit Areas header --- */
+/* --- Audit Standards header --- */
 .audit_Standards-Areas {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: 0.2rem;
+    margin-top: 20px;
+
 }
 
 .audit_Standards-Areas .icon svg {
@@ -172,18 +207,61 @@
 
 .audit_Standards-Areas span {
   background-color: #e0edff;
-    color: #b078ec;
+  color: #b078ec;
   font-size: 0.85rem;
   padding: 4px 10px;
   border-radius: 12px;
   margin-left: 4px;
 }
 
+.Standatds-clear-btn {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  height: 34px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626; 
+  background-color: #fff;
+  border: 1px solid #fecaca; 
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.Standatds-clear-btn:hover {
+  background-color: #fef2f2; 
+  border-color: #fca5a5; 
+  color: #b91c1c;
+}
+
+.Standatds-clear-btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.Standatds-clear-btn .clear-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: #dc2626;
+  transition: stroke 0.2s ease;
+}
+
+.Standatds-clear-btn:hover .clear-icon {
+  stroke: #b91c1c;
+}
+
+
 /* --- Search box --- */
 .audit_Standards-search-box {
   margin-top: 1rem;
   position: relative;
   width: 100%;
+  margin-top: 20px;
 }
 
 .audit_Standards-search-box .text {
@@ -215,7 +293,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
-    margin-top: 18px;
+    margin-top: 20px;
 }
 
 /* Each card */
@@ -264,96 +342,142 @@
   width: 36px;
   height: 36px;
 }
-/* --- Footer Container --- */
+
+
+/* ====== Footer Container ====== */
 .audit_Standards-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3rem;
-  flex-wrap: wrap;
-  gap: 1rem;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 16px 24px;
+  margin-top: 20px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
 }
 
-/* --- Left "Back" Button --- */
+/* ====== Back Button ====== */
 .audit_Standards-back {
   display: flex;
   align-items: center;
-  gap: 6px;
-  border: 1px solid #d1d5db;
-  background-color: #ffffff;
-  color: #111827;
-  padding: 14px 25px;
+  gap: 8px;
+  background: #f3f4f6;
+  border: 1px solid;
+  color: #333;
+  font-size: 15px;
+  padding: 10px 18px;
   border-radius: 8px;
-  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .audit_Standards-back:hover {
-  background-color: #f3f4f6;
-  transform: translateY(-2px);
+  background: #e5e7eb;
+  transform: translateX(-2px);
 }
 
-/* --- Preview Button --- */
+/* ====== Right Side Buttons ====== */
+.audit_Standards-right-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ====== Preview Button ====== */
 .audit_Standards-Preview {
   display: flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid #00c6a2;
-  background-color: #ffffff;
-  color: #00c6a2;
-  padding: 14px 22px;
-  border-radius: 15px;
+  background: #fff;
+  color: #83f981;
+  border: 1px solid #83f981;
   font-weight: 500;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .audit_Standards-Preview:hover {
-  background-color: #d1fae5;
-  transform: translateY(-2px);
+  /* background: #83f981; */
+  /* color: #111827; */
+  transform: scale(1.04);
 }
 
-/* --- Next Step Button --- */
+/* ====== Next Step Button ====== */
 .audit_Standards-next-button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background-color: #66e093;
-    color: #ffffff;
-    padding: 15px 32px;
-    border: 2px solid;
-    border-radius: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s 
-ease, transform 0.2s 
-ease;
-}
-
-.audit_Standards-next-button:hover {
-
-  background-color: #16a34a;
-  transform: translateY(-2px);
-}
-
-/* --- Right Footer Section (Preview + Next) --- */
-.audit_Standards-right-footer {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 8px;
+  background: #83f981;
+  color: #fff;
+  border: 1px solid #00c6a2;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* --- Icon Styling --- */
+.audit_Standards-next-button:hover:not(.disabled) {
+  background: rgb(162, 228, 186);
+  transform: translateX(2px);
+}
+
+/* ====== Disabled Button ====== */
+.audit_Standards-next-button.disabled {
+  background: #83f981;
+  color: #fff;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+/* ====== SVG Icons ====== */
 .audit_Standards-footer svg {
+  flex-shrink: 0;
   stroke-width: 2;
-  stroke: currentColor;
-  transition: transform 0.2s ease;
+  stroke: #ffffff;
+  transition: transform 0.3s ease;
 }
 
-.audit_Standards-footer button:hover svg {
-  transform: scale(1.1);
+.audit_Standards-back:hover svg {
+  transform: translateX(-2px);
 }
+
+.audit_Standards-next-button:hover:not(.disabled) svg {
+  transform: translateX(3px);
+}
+
+
+
+
+/* ====== Responsive (for small screens) ====== */
+@media (max-width: 600px) {
+  .audit_Standards-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .audit_Standards-right-footer {
+    justify-content: space-between;
+  }
+
+  .audit_Standards-back,
+  .audit_Standards-Preview,
+  .audit_Standards-next-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
 
 
 /* ✅ Base Styles — your provided CSS above remains same */

@@ -22,37 +22,54 @@
   width: 100%;
 }
 
+/* === Summary Header Section === */
 .Summary-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+}
+
+/* === Icon Styling === */
+.Summary-icon {
+  width: 55px;
+  height: 55px;
+  background-color: #69f450ff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .Summary-icon svg {
-  background: #4dd4ac;
-  padding: 6px;
-  border-radius: 50%;
-  color: white;
-  width: 32px;
-  height: 32px;
+  color: #fff; /* blue tone for Summary */
+  width: 36px;
+  height: 36px;
 }
 
+/* === Text Section === */
 .Summary-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .Summary-title {
-  color: black;
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
   margin: 0;
+  line-height: 1.2;
 }
 
 .Summary-subtitle {
-  color: #b3b3b3;
-  font-size: 0.9rem;
-  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  margin: 3px 0 0;
+  font-weight: 400;
 }
 
 .Summary-header-right {
@@ -459,79 +476,121 @@
 }
 
 
-/* --- Footer buttons --- */
-.footer {
+/* ===== Footer Container ===== */
+/* Footer Container */
+.Summary-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  background: #ffffff;
+  padding: 1.2rem 2rem;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 12px 12px;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
 
-.footer button {
+/* Back Button */
+.summary-back {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: #54e78a;
+  gap: 0.5rem;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #222;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-/* Back button */
-.footer .back {
-  border: 1px solid #d1d5db;
-  background-color: #fff;
-  color: #111;
-  padding: 8px 18px;
-  border-radius: 8px;
+.summary-back svg {
+  stroke: #374151;
 }
 
-.footer .back:hover {
-  background-color: #f3f4f6;
+.summary-back:hover {
+  background: #e5e7eb;
 }
 
-/* Preview button */
-.footer .Preview {
-    border: 1px solid;
-    background-color: #fff;
-    color: #4ee1c1;
-    padding: 8px 18px;
-    border-radius: 8px;
-}
-
-.footer .Preview:hover {
-  background-color: #bbf7d0;
-}
-
-/* Next Step button */
-.footer .next-button {
-  background-color: #22c55e;
-  color: #fff;
-  padding: 8px 22px;
-  border-radius: 8px;
-}
-
-.footer .next-button:hover {
-  background-color: #16a34a;
-}
-
-/* Right side button group */
-.right-footer {
+/* Right Side Buttons */
+.summary-right {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
+/* Preview Button */
+.Preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  padding: 0.6rem 1.3rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-/* ==========================================================
-   📱 RESPONSIVE DESIGN
-   Breakpoints: 
-   - Laptop: ≤ 1200px
-   - Tablet: ≤ 992px
-   - Mobile: ≤ 600px
-========================================================== */
+.Preview svg {
+  stroke: #059669;
+}
+
+.Preview:hover {
+  background: #d1fae5;
+}
+
+/* Generate Button */
+.Generate {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #38bc87;
+  color: #ffffff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.Generate svg {
+  stroke: #ffffff;
+}
+
+.Generate:hover {
+  background: #3bef62;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .Summary-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .summary-right {
+    justify-content: space-between;
+  }
+
+  .Generate, .Preview, .summary-back {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* RESPONSIVE DESIGN */
 
 /* 💻 Laptop screens (≤1200px) */
 @media (max-width: 1200px) {

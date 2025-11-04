@@ -6,9 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Audit.css";
 import Sidebar from "../components/Sidebar";
 import "../styles/Sidebar.css";
-import Stat_btn from "../components/Stat_btn";
+import StatButtons  from "../components/StatButtons ";
 import "../styles/navbar-progress.css";
-import type { ChecklistItem } from "./Sidebar";
 
 interface AuditProps {
   progress?: number;
@@ -20,6 +19,13 @@ interface Auditor {
   role: string;
   standards: string[];
 }
+
+type ChecklistItem = {
+  label: string;
+  key: string;
+  isActive: boolean;
+  count: number;
+};
 
 const initialAuditors: Auditor[] = [
   { initials: "SJ", name: "Sarah Johnson", role: "Lead Auditor", standards: ["ISO 9001", "AS 9100D"] },
@@ -45,12 +51,13 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
     { label: "Standards", key: "standards", isActive: false, count: 0 },
     { label: "Procedures", key: "procedures", isActive: false, count: 0 },
     { label: "Records", key: "records", isActive: false, count: 0 },
-    { label: "Summary", key: "summary", isActive: false ,count:0},
+    { label: "Summary", key: "summary", isActive: false, count: 0 },
   ]);
 
   const [localProgress, setLocalProgress] = useState<number>(progress);
   const [auditors] = useState<Auditor[]>(initialAuditors);
   const [search, setSearch] = useState<string>("");
+
   const [selected, setSelected] = useState<string>("All Standards");
   const [showStandardsList, setShowStandardsList] = useState(false);
   const [showRolesList, setShowRolesList] = useState(false);
@@ -81,24 +88,28 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
     );
   }
 
+  // ✅ Added: Load saved auditor count from localStorage on mount
+  useEffect(() => {
+    const savedAuditorCount = localStorage.getItem("selectedAuditorCount");
+    if (savedAuditorCount) setAuditorCount(parseInt(savedAuditorCount));
+  }, []);
+
+  // ✅ Added: Save auditor count to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("selectedAuditorCount", selectedAuditorCount.toString());
+  }, [selectedAuditorCount]);
+
   // ✅ Load persisted data when Audit component mounts
   useEffect(() => {
     const storedAuditors = localStorage.getItem("selectedAuditors");
     const storedCount = localStorage.getItem("selectedAuditorCount");
     const storedDate = localStorage.getItem("selectedDate");
     const storedProgress = localStorage.getItem("localProgress");
-
     if (storedAuditors) setSelectedAuditors(JSON.parse(storedAuditors));
     if (storedCount) setAuditorCount(parseInt(storedCount));
     if (storedDate) setSelectedDate(new Date(storedDate));
     if (storedProgress) setLocalProgress(Number(storedProgress));
   }, []);
-
-  // ✅ Persist auditors & count
-  useEffect(() => {
-    localStorage.setItem("selectedAuditors", JSON.stringify(selectedAuditors));
-    localStorage.setItem("selectedAuditorCount", String(selectedAuditorCount));
-  }, [selectedAuditors, selectedAuditorCount]);
 
   // ✅ Sync date & progress
   useEffect(() => {
@@ -119,11 +130,9 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
 
       const count = Object.keys(next).length;
       setAuditorCount(count);
-
       setChecklistItems((prev) =>
         prev.map((item) => (item.key === "auditors" ? { ...item, count } : item))
       );
-
       return next;
     });
   }
@@ -136,12 +145,7 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
     setAuditorCount(0);
     setSelectedDate(null);
     setLocalProgress(17);
-
-    // ✅ Clear from localStorage
-    localStorage.removeItem("selectedAuditors");
-    localStorage.removeItem("selectedAuditorCount");
-    localStorage.removeItem("selectedDate");
-    localStorage.removeItem("localProgress");
+    // localStorage.clear();
   };
 
   const handleDashboardClick = () => {
@@ -149,33 +153,35 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
   };
 
   const handleNextStep = () => {
-    // const newProgress = Math.min(localProgress + 17, 100);
-    // setLocalProgress(newProgress);
-    // localStorage.setItem("localProgress", String(newProgress));
-
     if (selectedDate) {
       const selectedAuditorNames = Object.keys(selectedAuditors);
-
-      // ✅ Store in localStorage for next page access
       localStorage.setItem("selectedAuditors", JSON.stringify(selectedAuditors));
       localStorage.setItem("selectedAuditorCount", String(selectedAuditorNames.length));
       localStorage.setItem("selectedDate", selectedDate.toISOString());
-
       navigate("/Areas", {
         state: {
           selectedAuditorNames,
           selectedDate,
           selectedAuditorCount: selectedAuditorNames.length,
+          checklistItems,
         },
       });
+
     } else {
       toast.error("Please select a date");
       console.log("Date missing");
     }
   };
 
+  const handleSelect = (role: string) => {
+    setSelectedRole(role);
+    setShowRolesList(false);
+  };
+
   const filteredAuditors = auditors.filter((a) => {
     const s = search.trim().toLowerCase();
+    if (selected !== "All Standards" && !a.standards.includes(selected)) return false;
+    if (selectedRole !== "All Roles" && a.role !== selectedRole) return false;
     if (!s) return true;
     return (
       a.name.toLowerCase().includes(s) ||
@@ -185,23 +191,24 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
     );
   });
 
-  // const handleSelectRole = (role: string) => {
-  //   setSelectedRole(role);
-  //   setShowRolesList(false);
-  // };
-
   return (
     <div className="audit">
       <Toaster position="top-center" />
-      <Sidebar checklistItems={checklistItems} toggleChecklist={toggleChecklist} />
+      <Sidebar checklistItems={checklistItems} toggleChecklist={toggleChecklist} selectedAuditorCount={selectedAuditorCount} />
 
-      <main className="audit-container" style={{ flex: 1 }}>
+      <main className="audit-cont" style={{ flex: 1 }}>
         {/* Header */}
         <div className="audit-header">
           <div className="audit-header-content">
             <div className="audit-header-left">
               <div className="audit-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+                  <path d="M20 3v4"></path>
+                  <path d="M22 5h-4"></path>
+                  <path d="M4 17v2"></path>
+                  <path d="M5 18H3"></path>
+                </svg>
               </div>
               <div className="audit-text">
                 <h1 className="audit-title">Create Audit Checklist</h1>
@@ -212,22 +219,13 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
 
           <div className="audit-header-right" style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <button type="button" className="audit-dashboard-btn" onClick={handleDashboardClick}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                stroke="#69f450ff"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#69f450ff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                 <rect width="7" height="9" x="3" y="3" rx="1"></rect>
                 <rect width="7" height="5" x="14" y="3" rx="1"></rect>
                 <rect width="7" height="9" x="14" y="12" rx="1"></rect>
                 <rect width="7" height="5" x="3" y="16" rx="1"></rect>
               </svg>
-              <span>Dashboard</span>
+              <span style={{ color: "#69f450ff" }}>Dashboard</span>
             </button>
             <img
               className="audit-user-avatar"
@@ -250,7 +248,7 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
 
         {/* Stat Buttons */}
         <div className="button-container">
-          <Stat_btn selectedAuditorCount={selectedAuditorCount} />
+          <StatButtons  selectedAuditorCount={selectedAuditorCount} />
         </div>
 
         {/* Auditor Section */}
@@ -288,7 +286,12 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
                 color: "#374151",
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 2v4"></path>
+                <path d="M16 2v4"></path>
+                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                <path d="M3 10h18"></path>
+              </svg>
               <span>{selectedDate ? selectedDate.toLocaleDateString() : "Select audit date"}</span>
             </button>
 
@@ -318,185 +321,188 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
             )}
           </div>
         </div>
-              <div className="Select-Auditors-Header">
-            <div className="Search-Filters-Wrapper">
-               <div className="Search">
-                  <label htmlFor="auditor-search"></label>
-                  <div className="Search-btn">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      stroke="#222"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      viewBox="0 0 24 24"
-                      width={18}
-                      height={18}
-                    >
-                      <circle cx="11" cy="11" r="8" />
-                      <path d="m21 21-4.3-4.3" />
-                    </svg>
-                    <input
-                      id="auditor-search"
-                      type="text"
-                      placeholder="Search auditors..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
-                  </div>
+
+        {/* Filter, Search, and Auditor Cards */}
+           
+        <div className="Select-Auditors-Header">
+          <div className="Search-Filters-Wrapper">
+            <div className="Search">
+              <label htmlFor="auditor-search"></label>
+              <div className="Search-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="#222"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                  width={18}
+                  height={18}
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input
+                  id="auditor-search"
+                  type="text"
+                  placeholder="Search auditors..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="Filters">
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <button
+                  type="button"
+                  onClick={() => setShowStandardsList((prev) => !prev)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    border: "1px solid #ddd",
+                    borderRadius: "10px",
+                    padding: "8px 12px",
+                    backgroundColor: "#fff",
+                    cursor: "pointer",
+                    minWidth: "180px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    stroke="#222"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                    width={18}
+                    height={18}
+                  >
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                  </svg>
+                  <span style={{ fontSize: "14px", color: "#0b0909ff" }}>{selected}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    stroke="#222"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                    width={18}
+                    height={18}
+                    style={{
+                      transform: showStandardsList ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 0.2s ease",
+                    }}
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                {showStandardsList && (
+                  <ul
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      marginTop: "4px",
+                      background: "#fff",
+                      border: "1px solid #ddd",
+                      borderRadius: "8px",
+                      listStyle: "none",
+                      padding: "6px 0",
+                      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                      width: "180px",
+                      zIndex: 10,
+                    }}>
+                    {standards.map((item) => (
+                      <li
+                        key={item}
+                        style={{
+                          padding: "8px 12px",
+                          cursor: "pointer",
+                          transition: "background 0.2s",
+                        }}
+                        onClick={() => {
+                          setSelected(item);
+                          setShowStandardsList(false);
+                        }}
+                        onMouseEnter={(e) =>
+                          ((e.target as HTMLElement).style.backgroundColor = "#f2f2f2")
+                        }
+                        onMouseLeave={(e) =>
+                          ((e.target as HTMLElement).style.backgroundColor = "transparent")
+                        }
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              {/* Second filter */}
+              <div className="dropdown">
+                <button
+                  type="button"
+                  onClick={() => setShowRolesList((prev) => !prev)}
+                  style={{ display: "flex",alignItems: "center",  justifyContent: "space-between", gap: "8px", border: "1px solid #ddd", borderRadius: "8px", padding: "8px 12px", backgroundColor: "#fff", cursor: "pointer", minWidth: "180px",}}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#222" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width={18} height={18}>
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                  </svg>
+                  <span style={{ fontSize: "14px", color: "#333" }}>{selectedRole}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#222" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width={18} height={18}
+                    style={{ transform: showRolesList ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease",}}>
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                {showRolesList && (
+                  <ul className="dropdown-menu">
+                    {roles.map((role) => (
+                      <li key={role} onClick={() => handleSelect(role)}
+                        style={{ padding: "8px 12px", cursor: "pointer", fontSize: "14px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: role === selectedRole ? "#f5f8fa" : "#fff", color: "#333",}}
+                        onMouseEnter={(e) =>
+                          ((e.target as HTMLElement).style.backgroundColor = "#f2f2f2")}
+                        onMouseLeave={(e) =>
+                          ((e.target as HTMLElement).style.backgroundColor =
+                            role === selectedRole ? "#f5f8fa" : "#fff")}>
+                        {role}
+                        {role === selectedRole && (
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width={16} height={16}>
+                              <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              {selectedAuditorCount > 0 && (
+                <div style={{ width: '100%', display: 'flex', gap:'6px' }}>
+                  <button
+                    type="button"
+                    onClick={clearAllSelectedAuditors}
+                    style={{
+                      background: '#fff',
+                      border: '1px solid #f87171',
+                      color: '#b91c1c',
+                      padding: '8px 12px',
+                      borderRadius: '8px',
+                      gap:'10px',
+                      cursor: 'pointer'
+                    }}>
+                    Deselect All
+                  </button>
                 </div>
-
-                <div className="Filters">
-                  <div style={{ position: "relative", display: "inline-block" }}>
-                    <button
-                      type="button"
-                      onClick={() => setShowStandardsList((prev) => !prev)}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        border: "1px solid #ddd",
-                        borderRadius: "10px",
-                        padding: "8px 12px",
-                        backgroundColor: "#fff",
-                        cursor: "pointer",
-                        minWidth: "180px",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        stroke="#222"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        viewBox="0 0 24 24"
-                        width={18}
-                        height={18}
-                      >
-                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                      </svg>
-                      <span style={{ fontSize: "14px", color: "#0b0909ff" }}>{selected}</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        stroke="#222"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        viewBox="0 0 24 24"
-                        width={18}
-                        height={18}
-                        style={{
-                          transform: showStandardsList ? "rotate(180deg)" : "rotate(0deg)",
-                          transition: "transform 0.2s ease",
-                        }}
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </button>
-                    {showStandardsList && (
-                      <ul
-                        style={{
-                          position: "absolute",
-                          top: "100%",
-                          left: 0,
-                          marginTop: "4px",
-                          background: "#fff",
-                          border: "1px solid #ddd",
-                          borderRadius: "8px",
-                          listStyle: "none",
-                          padding: "6px 0",
-                          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                          width: "180px",
-                          zIndex: 10,
-                        }}
-                      >
-                        {standards.map((item) => (
-                          <li
-                            key={item}
-                            style={{
-                              padding: "8px 12px",
-                              cursor: "pointer",
-                              transition: "background 0.2s",
-                            }}
-                            onClick={() => {
-                              setSelected(item);
-                              setShowStandardsList(false);
-                            }}
-                            onMouseEnter={(e) =>
-                              ((e.target as HTMLElement).style.backgroundColor = "#f2f2f2")
-                            }
-                            onMouseLeave={(e) =>
-                              ((e.target as HTMLElement).style.backgroundColor = "transparent")
-                            }
-                          >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-
-  {/* Second filter */}
-  <div className="dropdown">
-    <button
-      type="button"
-      onClick={() => setShowRolesList((prev) => !prev)}
-      style={{ display: "flex",alignItems: "center",  justifyContent: "space-between", gap: "8px", border: "1px solid #ddd", borderRadius: "8px", padding: "8px 12px", backgroundColor: "#fff", cursor: "pointer", minWidth: "180px",}}>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#222" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width={18} height={18}>
-        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-      </svg>
-      <span style={{ fontSize: "14px", color: "#333" }}>{selectedRole}</span>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#222" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width={18} height={18}
-        style={{ transform: showRolesList ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease",}}>
-        <path d="m6 9 6 6 6-6" />
-      </svg>
-    </button>
-    {showRolesList && (
-      <ul className="dropdown-menu">
-        {roles.map((role) => (
-          <li key={role} onClick={() => handleSelect(role)}
-            style={{ padding: "8px 12px", cursor: "pointer", fontSize: "14px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: role === selectedRole ? "#f5f8fa" : "#fff", color: "#333",}}
-            onMouseEnter={(e) =>
-              ((e.target as HTMLElement).style.backgroundColor = "#f2f2f2")}
-            onMouseLeave={(e) =>
-              ((e.target as HTMLElement).style.backgroundColor =
-                role === selectedRole ? "#f5f8fa" : "#fff")}>
-            {role}
-            {role === selectedRole && (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width={16} height={16}>
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            )}
-          </li>
-        ))}
-      </ul>
-    )}
+              )}
+            </div>
+          </div>
         </div>
-{selectedAuditorCount > 0 && (
-  <div style={{ width: '100%', display: 'flex', gap:'6px' }}>
-    <button
-      type="button"
-      onClick={clearAllSelectedAuditors}
-      style={{
-        background: '#fff',
-        border: '1px solid #f87171',
-        color: '#b91c1c',
-        padding: '8px 12px',
-        borderRadius: '8px',
-        gap:'10px',
-        cursor: 'pointer'
-      }}>
-      Deselect All
-    </button>
-    </div>
-    )}
-     </div>
-    </div>
-  </div>
         {/* Auditor Cards */}
         <div className="Auditor-Cards">
           {filteredAuditors.map((auditor, index) => {
@@ -511,7 +517,7 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
                 onKeyDown={() => toggleAuditor(auditor.name)}
               >
                 {isSelected && (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="check-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="#52ef6f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="check-icon">
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="m9 12 2 2 4-4"></path>
                   </svg>
@@ -532,11 +538,16 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
             );
           })}
         </div>
-
-        {/* Footer */}
+  
         <footer className="audit-footer">
-           <button type="button" className="audit-footer-btn"> {/*onClick={clearAllSelectedAuditors}> */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#83f981ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-sparkles w-5 h-5 mr-2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
+          <button type="button" className="audit-footer-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#83f981ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+              <path d="M20 3v4"></path>
+              <path d="M22 5h-4"></path>
+              <path d="M4 17v2"></path>
+              <path d="M5 18H3"></path>
+            </svg>
             Preview
           </button>
           <button className="next-btn" onClick={handleNextStep}>
@@ -549,4 +560,3 @@ const Audit: FC<AuditProps> = ({ progress = 17 }) => {
 };
 
 export default Audit;
-

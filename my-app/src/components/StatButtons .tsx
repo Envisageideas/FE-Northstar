@@ -3,33 +3,31 @@ import "../styles/navbar-progress.css";
 
 
 interface StatButtonsProps {
-  selectedLabel?:string;
-  selectedCount: number;
-  selectedAuditorCount?:number;
+  selectedLabel?: string;
+  selectedAuditorCount?: number;
   selectedAreasCount?: number;
   selectedStandardsCount?: number;
   selectedProceduresCount?: number;
   selectedRecordsCount?: number;
 }
+
 const StatButtons: React.FC<StatButtonsProps> = ({
   selectedLabel,
-  selectedAuditorCount =0,
+  selectedAuditorCount = 0,
   selectedAreasCount = 0,
   selectedStandardsCount = 0,
   selectedProceduresCount = 0,
   selectedRecordsCount = 0,
- }) => { 
-  
+}) => {
   return (
     <div className="summary-buttons">
-
-            {/* 🔹 Selected item display (from sidebar) */}
+      {/* 🔹 Selected item display */}
       {selectedLabel && (
         <div className="selected-label">
           <span>Selected: {selectedLabel}</span>
         </div>
       )}
-      
+
       {/* Auditors */}
       <button className="summary-btn green">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -96,4 +94,5 @@ const StatButtons: React.FC<StatButtonsProps> = ({
     </div>
   );
 };
+
 export default StatButtons;

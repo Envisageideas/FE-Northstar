@@ -4,13 +4,14 @@ import "../styles/Procedures.css";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "../styles/Sidebar.css";
-import Stat_btn from "../components/Stat_btn";
+import StatButtons  from "../components/StatButtons ";
 import "../styles/navbar-progress.css";
 
 interface AuditProps {
   progress?: number; // Progress percentage (0–100)
 }
 
+// Define ChecklistItem type locally
 interface ChecklistItem {
   label: string;
   key: string;
@@ -61,7 +62,7 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
   const navigate = useNavigate();
   const [selectedProcedures, setSelectedProcedures] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [localProgress,] = useState<number>(progress);
+  const [localProgress] = useState<number>(progress);
 
   const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([
     { label: "Auditors", key: "auditors", isActive: true, count: 0 },
@@ -94,21 +95,19 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
         )
       );
 
-      // const newProgress = 68 + updated.length * 5;
-      // setLocalProgress(Math.min(newProgress, 100));
       return updated;
     });
   };
 
   // ✅ Clear selected procedures
-  // const handleClear = () => {
-  //   setSelectedProcedures([]);
-  //   setChecklistItems((prevItems) =>
-  //     prevItems.map((item) =>
-  //       item.key === "procedures" ? { ...item, count: 0 } : item
-  //     )
-  //   );
-  // };
+  const handleClear = () => {
+    setSelectedProcedures([]);
+    setChecklistItems((prevItems) =>
+      prevItems.map((item) =>
+        item.key === "procedures" ? { ...item, count: 0 } : item
+      )
+    );
+  };
 
   // ✅ Navigation Handlers
   const handleDashboardClick = () => {
@@ -117,8 +116,6 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
 
   const handleNextStep = () => {
     if (selectedProcedures.length === 0) return;
-    // const nextProgress = Math.min(localProgress + 100 / 6, 100);
-    // setLocalProgress(nextProgress);
     navigate("/Records");
   };
 
@@ -134,8 +131,8 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
       <main className="audit-Pro-container" style={{ flex: 1 }}>
         {/* Header */}
         <div className="audit-Pro-header">
-          <div className="audit-Pro-header-content flex justify-between items-center">
-            <div className="audit-Pro-header-left flex items-center gap-3">
+          <div className="audit-Pro-header-content">
+            <div className="audit-Pro-header-left">
               <div className="audit-Pro-icon" aria-hidden>
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
               </div>
@@ -152,7 +149,7 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
                   width="24"
                   height="24"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="#69f450ff"
                   strokeWidth={2}
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -162,7 +159,7 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
                   <rect width="7" height="9" x="14" y="12" rx="1"></rect>
                   <rect width="7" height="5" x="3" y="16" rx="1"></rect>
                 </svg>
-                <span>Dashboard</span>
+                <span style={{ color: "#69f450ff" }}>Dashboard</span>
               </button>
               <img
                 className="user-avatar"
@@ -191,7 +188,7 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
 
         {/* Stat Button */}
         <div className="audit-Pro-button-container">
-          <Stat_btn selectedProceduresCount={selectedProcedures.length} />
+          <StatButtons  selectedProceduresCount={selectedProcedures.length} />
         </div>
 
         {/* Title */}
@@ -200,15 +197,35 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
           <p>Choose relevant procedures for verification</p>
         </div>
 
-        {/* Search Box */}
-        <div className="audit-Pro-search-box">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-search absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-          <input
-            type="text"
-            placeholder="Search procedures..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <div className="Procedures">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-clipboard-list w-5 h-5 text-orange-600"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+          <h3>Procedures</h3>
+          <span>{selectedProcedures.length} selected</span>
+          {selectedProcedures.length > 0 && (
+            <button
+              className="Procedures-clear-btn"
+              data-testid="button-deselect-Procedures"
+              onClick={handleClear}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="Procedures-clear-icon"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m15 9-6 6"></path>
+                <path d="m9 9 6 6"></path>
+              </svg>
+              Clear
+            </button>
+          )}
         </div>
 
         {/* Procedures List */}
@@ -224,8 +241,32 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
                 tabIndex={0}
               >
                 <div className="audit-Pro-content">
-                  <h3>{proc.title}</h3>
-                  <p>{proc.description}</p>
+                  <div
+                    className="content-icon"
+                    style={{
+                      width: "2.5rem",
+                      height: "2.5rem",
+                      borderRadius: "0.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      backgroundColor: "#FFEDD5",
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                      <path d="M12 11h4"></path>
+                      <path d="M12 16h4"></path>
+                      <path d="M8 11h.01"></path>
+                      <path d="M8 16h.01"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3>{proc.title}</h3>
+                    <p>{proc.description}</p>
+                  </div>
                 </div>
                 {isSelected && (
                   <div className="audit-Pro-check-icon animate-fadeIn">
@@ -234,7 +275,7 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
                       width="22"
                       height="22"
                       fill="none"
-                      stroke="currentColor"
+                      stroke="#f97316"
                       strokeWidth={2}
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -268,7 +309,8 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
           <div className="audit-Pro-footer-right">
             <button className="audit-Pro-footer-right-Preview">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#83f981ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-sparkles w-5 h-5 mr-2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
-              Preview</button>
+              Preview
+            </button>
 
             <button
               className={`audit-Pro-footer-next-button ${
@@ -283,7 +325,7 @@ const Procedures: FC<AuditProps> = ({ progress = 68 }) => {
                 width="20"
                 height="20"
                 fill="none"
-                stroke="currentColor"
+                stroke="#fff"
                 strokeWidth={2}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

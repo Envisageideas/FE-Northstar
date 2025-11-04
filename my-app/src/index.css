@@ -11,14 +11,13 @@
 body {
     margin: 0;
     padding: 0;
-    
     background: white;
     
   
 
 }
-
-/* @media (prefers-color-scheme: light) {
+ 
+ @media (prefers-color-scheme: light) {
   :root {
     color: #e3eaef;
     background-color: #ffffff;
@@ -29,4 +28,4 @@ body {
   button {
     background-color: #f9f9f9;
   }
-} */
+} 

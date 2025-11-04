@@ -23,36 +23,68 @@
 
 
 /* header */
-.audit-Pro-header {
-  background: #ffffff;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .audit-Pro-header-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
 }
-
+/* Header container: aligns icon and text side-by-side */
 .audit-Pro-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 18px; /* space between icon and text */
+  padding: 12px 0;
 }
 
-.audit-Pro-icon svg {
-  background: #32e58b;
-    padding: 6px;
-    border-radius: 50%;
-    color: #ffffff;
-    width: 32px;
-    height: 32px;
+/* Icon box styling */
+.audit-Pro-icon {
+  width: 55px;
+  height: 55px;
+  background-color: #7ffa8d; /* light yellow background */
+  color: #0f766e; /* amber/yellow icon color */
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
+
+/* SVG inside icon */
+.audit-Pro-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: white;
+  transition: stroke 0.3s ease;
+}
+
+/* Title text styling */
+.audit-Pro-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1e293b; /* dark slate */
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Subtitle text styling */
+.audit-Pro-subtitle {
+  font-size: 1rem;
+  color: #64748b; /* subtle gray */
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+
+
 
 
 .audit-Pro-text {
@@ -163,7 +195,6 @@
 .audit-Pro-icon-text p {
   color: #666;
   font-size: 0.95rem;
-  margin-top: -20px;
   text-align: justify;
 }
 
@@ -194,41 +225,74 @@
     margin-left: 4px;
 }
 
-/* --- Search box --- */
-.audit-Pro-search-box {
-  margin-top: 1rem;
-  position: relative;
-  width: 100%;
+.Procedures {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-.audit-Pro-search-box .text {
-  position: relative;
+.Procedures svg {
+  width: 22px;
+  height: 22px;
+  color: #f97316; /* Blue tone for Procedures */
 }
 
-.audit-Pro-search-box input {
-  width: 100%;
-  padding: 10px 12px 10px 38px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  outline: none;
+.Procedures h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
   color: #222;
-  background: #fff;
-  transition: border-color 0.2s;
 }
 
-.audit-Pro-search-box input:focus {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 2px #bbf7d0;
+.Procedures span {
+  background-color: #ebbfa0; /* Light blue background */
+  color: #f97316;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-left: 4px;
 }
 
-.audit-Pro-search-box svg {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: #999;
-  width: 20px;
-  height: 20px;
+/* Clear button styling (consistent with your theme) */
+.Procedures-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  height: 34px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626; /* red for clear/delete action */
+  background-color: #fff;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.Procedures-clear-btn:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.Procedures-clear-btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.Procedures-clear-btn .Procedures-clear-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: #dc2626;
+  transition: stroke 0.2s ease;
+}
+
+.Procedures-clear-btn:hover .Procedures-clear-icon {
+  stroke: #b91c1c;
 }
 
 /* Container for standards grid */
@@ -257,20 +321,23 @@
 
 /* Text inside card */
 .audit-Pro-content {
-  flex-grow: 1;
+    display: flex;
+  align-items: center;
+  gap: 1rem; /* spacing between icon and text */
+  margin-bottom: 1rem;
 }
 
 .audit-Pro-content h3 {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: black;
-  margin-bottom: 4px;
+  color: #333;
+  margin: 0;
 }
 
 .audit-Pro-content p {
-  font-size: 14px;
-  color: black;
   margin: 0;
+  font-size: 0.95rem;
+  color: #555;
 }
 /* Checkmark icon */
 .audit-Pro-check-icon {
@@ -283,70 +350,103 @@
 }
 
 
-/* --- Footer buttons --- */
+
 .audit-Pro-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-    border: 1px solid #ebe9e9;
-    padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 16px 24px;
+  margin-top: 20px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
 }
 
-.audit-Pro-footer button {
+/* ---------- Back Button ---------- */
+.audit-Pro-footer-back {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 13px 19px;
-  font-weight: 500;
-  cursor: pointer;
+  gap: 8px;
+  background: #f4f4f4;
   border: 1px solid;
-  transition: all 0.2s ease;
-}
-
-/* Back button */
-.audit-Pro-footer-back {
-  background-color: #ffffff;
-  color: #111;
-  padding: 8px 18px;
+  color: #333;
+  font-size: 15px;
+  padding: 10px 18px;
   border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .audit-Pro-footer-back:hover {
-  background-color: #f3f4f6;
+  background: #e8e8e8;
+  transform: translateX(-2px);
 }
 
-/* Preview button */
+/* ---------- Right Section ---------- */
+.audit-Pro-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------- Preview Button ---------- */
 .audit-Pro-footer-right-Preview {
-  background-color: #ffffff;
-  color: #4ee1c1;
-  padding: 8px 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #83f981;
+  border: 1px solid #83f981;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 10px 20px;
   border-radius: 8px;
-  border: 1px solid #4ee1c1;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .audit-Pro-footer-right-Preview:hover {
-  background-color: #bbf7d0;
+  /* background: #83f981; */
+  /* color: #121212; */
+  transform: scale(1.03);
 }
 
-/* Next Step button */
+/* ---------- Next Step Button ---------- */
 .audit-Pro-footer-next-button {
-  background-color: #22c55e;
-  color: #ffffff;
-  padding: 8px 22px;
-  border-radius: 8px;
-}
-
-.audit-Pro-footer-next-button:hover {
-  background-color: #16a34a;
-}
-
-/* Right side button group */
-.audit-Pro-footer-right {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 8px;
+  background: #69f450ff;
+  color: #fff;
+  border: 1px solid #00c6a2;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* .audit-Pro-footer-next-button:hover:not(.disabled) {
+  background: #1e40af;
+  transform: translateX(2px);
+} */
+
+/* ---------- Disabled State ---------- */
+.audit-Pro-footer-next-button.disabled {
+  background: #5fe891;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+/* ---------- SVG Icons ---------- */
+.audit-Pro-footer svg {
+  flex-shrink: 0;
+  color: #fff;
 }
 
 /* -------------------------------

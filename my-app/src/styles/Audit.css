@@ -26,11 +26,12 @@
 /* ==============================
    MAIN CONTAINER
 ================================= */
-.audit-container {
-  flex: 1;
-  background: #ffffff;
-  margin: 16px 16px 16px 0;
-  box-shadow: 0 2px 8px rgba(224, 54, 54, 0.05);
+.audit-cont {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    font-family: "Segoe UI", sans-serif;
+    color: #222;
 }
 
 /* ==============================
@@ -45,19 +46,41 @@
 .audit-header-content{
   display: flex;
 
-.audit-icon svg{
-      background: #32e58b;
-        padding: 6px;
-        border-radius: 50%;
-        color: #ffffff;
-        width: 32px;
-        height: 32px;
+.audit-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #52ef6f; /* soft teal background */
+  color: white; /* teal icon color */
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
+
+/* Hover effect */
+.audit-icon:hover {
+  background-color: #0f766e;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(15, 118, 110, 0.3);
+}
+
+/* Optional: if you want to make SVG responsive */
+.audit-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke-width: 2;
+}
+ 
 
 }
 .audit-header-left{
   display: flex;
 }
+
 .audit-header h2 {
   margin: 0;
   display: flex;

@@ -40,32 +40,32 @@ const auditData: AuditDay[] = [
 
 const AuditSchedule: React.FC = () => {
   return (
-    <div className="audit-container">
+    <div className="schedule-container">
       {auditData.map((day, index) => (
         <div key={index} className="audit-day">
-          <div className="audit-header">
+          <div className="schedule-header">
             <div className="header-left">
-              <span className="calendar-icon">📅</span>
+              <span className="schedule-cal-icon">📅</span>
               <h3>{day.date}</h3>
-              <span className="audit-count">{day.totalAudits} audits</span>
+              <span className="schedule-count">{day.totalAudits} audits</span>
             </div>
           </div>
 
-          <div className="audit-list">
+          <div className="schedule-list">
             {day.auditors.map((auditor, idx) => (
-              <div key={idx} className="auditor-card">
-                <div className="auditor-info">
-                  <div className="avatar">{auditor.initials}</div>
-                  <div className="details">
-                    <p className="name">{auditor.name}</p>
-                    <p className="role">{auditor.role}</p>
-                    <div className="meta">
+              <div key={idx} className="schedule-card">
+                <div className="schedule-info">
+                  <div className="schedule-avatar">{auditor.initials}</div>
+                  <div className="schedule-details">
+                    <p className="schedule-name">{auditor.name}</p>
+                    <p className="schedule-role">{auditor.role}</p>
+                    <div className="schedule-meta">
                       <span className="meta-item">🏢 {auditor.areas} areas</span>
                       <span className="meta-item">📄 {auditor.standards} standards</span>
                     </div>
                   </div>
                 </div>
-                <div className="status-btn">{auditor.status}</div>
+                <div className="schedule-status-btn">{auditor.status}</div>
               </div>
             ))}
           </div>

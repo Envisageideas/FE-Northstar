@@ -5,7 +5,7 @@ import "../styles/Standards.css";
 import "../styles/Sidebar.css";
 import "../styles/navbar-progress.css";
 import Sidebar from "../components/Sidebar";
-import Stat_btn from "../components/Stat_btn";
+import StatButtons  from "../components/StatButtons ";
 
 interface AuditProps {
   progress?: number;
@@ -89,8 +89,6 @@ const Standards: FC<AuditProps> = ({ progress = 50 }) => {
 
   const handleNextStep = () => {
     if (selectedStandards.length === 0) return;
-    // const nextProgress = Math.min(localProgress + 100 / 6, 100);
-    // setLocalProgress(nextProgress);
     navigate("/Procedures");
   };
 
@@ -106,10 +104,10 @@ const Standards: FC<AuditProps> = ({ progress = 50 }) => {
       <main className="audit_Standards-container" style={{ flex: 1 }}>
         {/* Header */}
         <div className="audit_Standards-header">
-          <div className="audit_Standards-header-content flex-between">
-            <div className="audit_Standards-header-left flex gap-3">
+          <div className="audit_Standards-header-content">
+            <div className="audit_Standards-header-left">
               <div className="audit_Standards-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
               </div>
               <div>
                 <h1 className="audit_Standards-title">Create Audit Checklist</h1>
@@ -119,13 +117,13 @@ const Standards: FC<AuditProps> = ({ progress = 50 }) => {
 
             <div className="audit_Standards-header-right flex gap-3">
               <button className="audit_Standards-dashboard-btn" onClick={handleDashboardClick}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" stroke="currentColor" fill="none" strokeWidth="2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" stroke="#69f450ff" fill="none" strokeWidth="2">
                   <rect width="7" height="9" x="3" y="3" rx="1"></rect>
                   <rect width="7" height="5" x="14" y="3" rx="1"></rect>
                   <rect width="7" height="9" x="14" y="12" rx="1"></rect>
                   <rect width="7" height="5" x="3" y="16" rx="1"></rect>
                 </svg>
-                <span>Dashboard</span>
+                <span style={{ color: "#69f450ff"}}>Dashboard</span>
               </button>
               <img
                 className="user-avatar"
@@ -148,20 +146,37 @@ const Standards: FC<AuditProps> = ({ progress = 50 }) => {
         </div>
 
         {/* Stat Buttons */}
-        <Stat_btn selectedStandardsCount={selectedStandards.length} />
+        <StatButtons  selectedStandardsCount={selectedStandards.length} />
+
+        <div className="audit_Standards-text">
+          <h2>Select Quality Standards</h2>
+          <p>Choose the standards to audit against</p>
+        </div>
 
         {/* Standards Header */}
-        <div className="audit_Standards-Areas flex items-center gap-3">
+        <div className="audit_Standards-Areas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
           <h3>Quality Standards</h3>
           <span>{selectedStandards.length} selected</span>
-          {selectedStandards.length > 0 && (
-            <button type="button" className="delete-btn" onClick={handleClear}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" stroke="currentColor" fill="none" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              
-              <span>Clear</span>
-            </button>
+          {selectedStandards.length > 0 && ( 
+          <button className="Standatds-clear-btn" data-testid="button-deselect-standards">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="clear-icon">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m15 9-6 6"></path>
+            <path d="m9 9 6 6"></path>
+          </svg>
+             Clear
+          </button>
           )}
         </div>
 
@@ -184,6 +199,7 @@ const Standards: FC<AuditProps> = ({ progress = 50 }) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 7.5 7.5a7.5 7.5 0 0 0 9.15 9.15z" />
           </svg>
         </div>
+
 
         {/* Standards Grid */}
         <div className="audit_Standard-container">
@@ -214,8 +230,9 @@ const Standards: FC<AuditProps> = ({ progress = 50 }) => {
 
         {/* Footer */}
         <div className="audit_Standards-footer">
+          
           <button className="audit_Standards-back" onClick={() => navigate(-1)}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#222" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
             Back

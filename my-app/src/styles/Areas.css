@@ -44,19 +44,44 @@ width: 100%;
 }
 
 .audit__header-left {
-display: flex;
-align-items: center;
-gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 0;
 }
 
-.audit__icon svg {
-background: #4dd4ac;
-padding: 6px;
-border-radius: 50%;
-color: white;
-width: 32px;
-height: 32px;
+.audit__icon {
+  width: 55px;
+  height: 55px;
+  background-color: #7ffa8d; /* light teal background */
+  color: #0f766e; /* teal icon color */
+  border-radius: 16px; /* rounded box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
+
+/* Hover animation */
+.audit__icon:hover {
+  background-color: #0f766e;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(15, 118, 110, 0.3);
+}
+
+/* SVG styling */
+.audit__icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: white;
+  transition: stroke 0.3s ease;
+}
+
+
+
 
 .audit__text {
 display: flex;
@@ -164,36 +189,80 @@ text-align: justify;
 
 .audit__section-header p {
 color: #666;
-margin-top: -20px;
 font-size: 0.95rem;
 text-align: justify;
 }
 
+
 /* ===== Audit Areas Header ===== */
-.audit__areas-header {
-gap: 12px;
-margin-top: -1.2rem;
+.audit__Areas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-.audit__areas-header .audit__areas-icon svg {
-width: 22px;
-height: 22px;
-color: #1d4ed8;
+.audit__Areas svg {
+  width: 22px;
+  height: 22px;
+  color: #2563eb; 
 }
 
-.audit__areas-header h3 {
-font-size: 1.2rem;
-font-weight: 600;
-color: #222;
+.audit__Areas h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
 }
 
-.audit__areas-header span {
-background-color: #e0edff;
-color: #1d4ed8;
-font-size: 0.85rem;
-padding: 4px 10px;
-border-radius: 12px;
-margin-left: 4px;
+.audit__Areas span {
+  background-color: #a9c1f7;
+  color: #2563eb;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-left: 4px;
+}
+
+/* Clear button styling (matching your Standards button style) */
+.areas-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  height: 34px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626; 
+  background-color: #fff;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.areas-clear-btn:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.areas-clear-btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.areas-clear-btn .clear-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: #dc2626;
+  transition: stroke 0.2s ease;
+}
+
+.areas-clear-btn:hover .clear-icon {
+  stroke: #b91c1c;
 }
 
 /* ===== Search Box ===== */
@@ -261,7 +330,7 @@ border-color: #81a3ea;
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #637cf5;
+  color: #2563eb;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -282,71 +351,144 @@ border-color: #81a3ea;
   font-size: 16px;
   font-weight: 600;
   color: #333;
+  text-align: justify;
   margin-bottom: 6px;
 }
 .audit__area-card p {
   font-size: 14px;
   color: #666;
   line-height: 1.4;
+  text-align: justify;
 }
-
-/* ===== Footer ===== */
+/* ===== Footer Container ===== */
 .audit__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-    border: 1px solid #f4f3f3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 16px 24px;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  bottom: 0;
+  z-index: 50;
+  margin-top: 20px;
 }
 
-.audit__footer button {
-display: flex;
-align-items: center;
-gap: 6px;
-font-weight: 500;
-cursor: pointer;
-border: 2px solid #69f797;
-transition: all 0.2s ease;
-}
-
-/* Back button */
+/* ===== Back Button ===== */
 .audit__footer-back {
-background-color: #ffffff;;
-color: #111;
-padding: 13px 30px;
-border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f4f6;
+  border: 1px solid;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Preview button */
-.audit__footer-preview {
-background-color: white;
-color: #7ce785;
-padding: 8px 18px;
-border-radius: 16px;
+.audit__footer-back:hover {
+  background: #e5e7eb;
+  transform: translateX(-3px);
 }
 
-/* Next Step button */
-.audit__footer-next {
-background-color: #22c55e;
-border: 1px solid rgb(131, 239, 151);
-color: #fff;
-padding: 9px 30px;
-border-radius: 16px;
-}
-
-.audit__footer-next:hover {
-background-color: #16a34a;
-}
-
-/* Right button group */
+/* ===== Right Section ===== */
 .audit__footer-right {
-display: flex;
-gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
+/* ===== Preview Button ===== */
+.audit__footer-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #83f981;
+  border: 1px solid #83f981;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+.audit__footer-preview:hover {
+  /* background: #83f981; */
+  /* color: #111827; */
+  transform: scale(1.04);
+}
+
+/* ===== Next Step Button ===== */
+.audit__footer-next {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #83f981;
+  color: #ffffff;
+  border: 1px solid #00c6a2;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.audit__footer-next:hover:not(.disabled) {
+  /* background: #1e40af; */
+  transform: translateX(3px);
+}
+
+/* ===== Disabled State ===== */
+.audit__footer-next.disabled {
+  /* background: #d1d5db; */
+  /* color: #9ca3af; */
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+/* ===== SVG Animations ===== */
+.audit__footer svg {
+  stroke: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.audit__footer-back:hover svg {
+  transform: translateX(-3px);
+}
+
+.audit__footer-next:hover:not(.disabled) svg {
+  transform: translateX(4px);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 600px) {
+  .audit__footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .audit__footer-right {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .audit__footer-back,
+  .audit__footer-preview,
+  .audit__footer-next {
+    width: 100%;
+    justify-content: center;
+  }
+}
 /* ===================================
    RESPONSIVE DESIGN
 =================================== */

@@ -7,38 +7,66 @@
   /* min-height: 100vh; */
 }
 
-
 /* header */
-.Records-header {
-  background: #ffffff;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.Records-header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
+/* === Records Header Section === */
 .Records-header-left {
+  padding: 18px 22px;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Records-header-left:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* === Icon Styling === */
+.Records-icon {
+  width: 55px;
+  height: 55px;
+  background-color: #69f450ff; /* soft yellow */
+  color: #ca8a04; /* amber icon color */
+  border-radius: 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .Records-icon svg {
-  background: #4dd4ac;
-  padding: 6px;
-  border-radius: 50%;
-  color: white;
-  width: 32px;
-  height: 32px;
+  color: #fff;
+  width: 36px;
+  height: 36px;
 }
+
+/* === Text Section === */
+.Records-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Records-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.Records-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 3px 0 0;
+  font-weight: 400;
+}
+
+
+
+
 
 .Records-text {
   display: flex;
@@ -147,7 +175,6 @@
 .Records-icon-text p {
   color: #666;
   font-size: 0.95rem;
-  margin-top: -20px;
   text-align: justify;
 }
 
@@ -214,15 +241,15 @@
 }
 
 .Records-search-input {
-  width: 100%;
-  padding: 10px 16px 10px 40px;
-  border: 1px solid #dcdcdc;
-  border-radius: 30px;
-  font-size: 14px;
-  color: #333;
-  outline: none;
-  background-color: #fff;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    width: 100%;
+    padding: 17px 20px 16px 46px;
+    border: 1px solid #dcdcdc;
+    border-radius: 14px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    background-color: #fff;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .Records-search-input:focus {
@@ -234,11 +261,11 @@
 .upload-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background-color: #fff;
     border: 1px solid #dcdcdc;
-    border-radius: 16px;
-    padding: 10px 92px;
+    border-radius: 14px;
+     padding: 17px 79px 17px 82px;
     cursor: pointer;
     color: #00c37a;
     font-weight: 500;
@@ -256,36 +283,129 @@
   height: 16px;
 }
 
+/* clear */
+.Records-Forms {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.Records-Forms svg {
+  width: 22px;
+  height: 22px;
+  color: #0d9488; /* Orange tone for Records & Forms */
+}
+
+.Records-Forms h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.Records-Forms span {
+  background-color: #b1f5ef; /* Soft orange background */
+  color: #0d9488;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-left: 4px;
+}
+
+/* Clear button styling — consistent with your UI theme */
+.Records-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  height: 34px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626; /* red tone for clear action */
+  background-color: #fff;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.Records-clear-btn:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.Records-clear-btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.Records-clear-btn .Records-clear-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: #dc2626;
+  transition: stroke 0.2s ease;
+}
+
+.Records-clear-btn:hover .Records-clear-icon {
+  stroke: #b91c1c;
+}
+
 
 /* Container for standards grid */
-.Records-container {
-  display: grid;
-  gap: 16px;
-  padding: 16px;
+
+
+.Records-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between icon and text */
+  padding: 0.75rem 1rem;
+  border: 1px solid #0d9488; /* light gray border */
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin: 20px;
 }
 
-.Records-card {
-    display: flex;
-    align-items: center;
-    border: 1px solid #4ee1c1;
-    border-radius: 14px;
-    padding: 4px 20px;
-    transition: all 0.25s ease-in-out;
-    cursor: pointer;
+.Records-content:hover {
+  background-color: #f0fdfa; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.Records-card.selected {
-    border-color: #4ee1c1;
-    background-color: #4ee1c114;
+.Records-content svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: #0d9488;
+    flex-shrink: 0;
 }
-/* ✅ Top-right check icon */
-.Records-check-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #090f0d;
-  animation: fadeIn 0.3s ease-in-out;
+
+.Records-content h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #222;
+  margin: 0;
 }
+
+.Records-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.Records-check-icon{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+
 
 @keyframes fadeIn {
   from {
@@ -312,88 +432,93 @@
   text-align: justify;
 }
 
-
-/* footer */
+/* Footer Container */
 .Records-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
-  border-top: 1px solid #ddd;
-  background-color: #fff;
-  font-family: Arial, sans-serif;
+  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  margin-top: 20px;
+
 }
 
-/* ---------- Back Button ---------- */
-.back {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #ffffff;
-    color: #333;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 12px 26px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s 
-ease;
+/* Back Button */
+.Records-footer .back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f9fafb;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.back:hover {
-  background-color: #e6e6e6;
+.Records-footer .back:hover {
+  background-color: #f3f4f6;
+  transform: translateX(-2px);
 }
 
-/* ---------- Right Side Footer ---------- */
+/* Right-side footer buttons container */
 .Records-right-footer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 }
 
-/* ---------- Preview Button ---------- */
+/* Preview Button */
 .Records-Preview {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #fff;
-  color: #69f797;
-  border: 1px solid #7bfa9d;
-  border-radius: 12px;
-  padding: 10px 21px;
-  font-size: 14px;
+  background-color: #f0fdf4;
+  color: #22c55e;
+  border: 1px solid #22c55e;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .Records-Preview:hover {
-  background-color: #e6e6e6;
+  background-color: #dcfce7;
+  transform: scale(1.03);
 }
 
-/* ---------- Next Button ---------- */
+/* Next Step Button */
 .next-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #4cf289;
-    color: white;
-    border: 2px solid;
-    border-radius: 12px;
-    padding: 11px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s 
-ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #69f450ff;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid #159f48;
+
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .next-button:hover {
-  background-color: #75f4b9;
+  background-color: #4ae437;
+  transform: scale(1.03);
 }
 
-/* ---------- Icon Styles ---------- */
-.Records-footer svg {
-stroke: #69f797;
-    display: inline-block;
+.next-button svg {
+  stroke: #fff;
 }
 
 /* ===========================================

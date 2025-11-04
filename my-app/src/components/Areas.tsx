@@ -1,16 +1,17 @@
-import { useState, type FC } from "react";
+import { useState, useEffect, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Areas.css";
 import "../styles/Sidebar.css";
 import "../styles/navbar-progress.css";
 import Sidebar from "../components/Sidebar";
-import Stat_btn from "../components/Stat_btn";
+import StatButtons from "../components/StatButtons ";
 
 interface AuditProps {
   progress?: number; // Progress percentage (0–100)
 }
 
+// Define ChecklistItem type locally
 interface ChecklistItem {
   label: string;
   key: string;
@@ -37,7 +38,7 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
   const [selectedAreas, setSelectedAreas] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [localProgress, setLocalProgress] = useState<number>(progress);
-
+  const [selectedAreasCount, setSelectedAreasCount] = useState(0);
   const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([
     { label: "Auditors", key: "auditors", isActive: true, count: 0 },
     { label: "Areas", key: "areas", isActive: false, count: 0 },
@@ -46,8 +47,19 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
     { label: "Records", key: "records", isActive: false, count: 0 },
     { label: "Summary", key: "summary", isActive: false, count: 0 },
   ]);
-  
 
+  // ✅ Load saved selected areas count from localStorage
+  useEffect(() => {
+    const savedAreasCount = localStorage.getItem("selectedAreasCount");
+    if (savedAreasCount) {
+      setSelectedAreasCount(parseInt(savedAreasCount));
+    }
+  }, []);
+
+  // ✅ Save selectedAreasCount to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("selectedAreasCount", selectedAreas.length.toString());
+  }, [selectedAreas]);
 
   const toggleChecklist = (key: string) => {
     setChecklistItems((prev) =>
@@ -63,8 +75,6 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
         ? prev.filter((areaId) => areaId !== id)
         : [...prev, id];
 
- 
-
       // ✅ Update sidebar count
       setChecklistItems((prevItems) =>
         prevItems.map((item) =>
@@ -72,10 +82,7 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
         )
       );
 
-      // ✅ Update progress dynamically
-      // const newProgress = 33 + updated.length * 10;
-      // setLocalProgress(Math.min(newProgress, 100));
-
+      setSelectedAreasCount(updated.length);
       return updated;
     });
   };
@@ -89,9 +96,7 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
   };
 
   const handleNextStep = () => {
-    if (selectedAreas.length === 0) {
-      return;
-    }
+    if (selectedAreas.length === 0) return;
     navigate("/Standards");
   };
 
@@ -107,7 +112,13 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
           <div className="audit__header-content">
             <div className="audit__header-left">
               <div className="audit__icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+                  <path d="M20 3v4"></path>
+                  <path d="M22 5h-4"></path>
+                  <path d="M4 17v2"></path>
+                  <path d="M5 18H3"></path>
+                </svg>
               </div>
               <div className="audit__text">
                 <h1 className="audit__title">Create Audit Checklist</h1>
@@ -117,13 +128,13 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
 
             <div className="audit__header-right">
               <button type="button" className="audit__dashboard-btn" onClick={handleDashboardClick}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" strokeWidth={2} fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="#69f450ff" strokeWidth={2} fill="none">
                   <rect width="7" height="9" x="3" y="3" rx="1" />
                   <rect width="7" height="5" x="14" y="3" rx="1" />
                   <rect width="7" height="9" x="14" y="12" rx="1" />
                   <rect width="7" height="5" x="3" y="16" rx="1" />
                 </svg>
-                <span>Dashboard</span>
+                <span style={{ color: "#69f450ff" }}>Dashboard</span>
               </button>
               <img
                 className="audit__avatar"
@@ -153,13 +164,45 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
 
         {/* Stat Buttons */}
         <div className="button-container">
-          <Stat_btn selectedAreasCount={selectedAreas.length} />
+          <StatButtons selectedAreasCount={selectedAreasCount} />
         </div>
 
         {/* Section Header */}
         <div className="audit__section-header">
           <h2>Select Audit Areas</h2>
           <p>Choose the areas to include in this audit</p>
+        </div>
+
+        <div className="audit__Areas">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-building w-5 h-5 text-blue-600">
+            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+            <path d="M9 22v-4h6v4"></path>
+            <path d="M8 6h.01"></path>
+            <path d="M16 6h.01"></path>
+            <path d="M12 6h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M16 10h.01"></path>
+            <path d="M16 14h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M8 14h.01"></path>
+          </svg>
+          <h3>Audit Areas</h3>
+          <span>{selectedAreas.length} selected</span>
+          {selectedAreas.length > 0 && (
+            <button
+              className="areas-clear-btn"
+              data-testid="button-deselect-areas"
+              onClick={() => setSelectedAreas([])}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="clear-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m15 9-6 6"></path>
+                <path d="m9 9 6 6"></path>
+              </svg>
+              Clear
+            </button>
+          )}
         </div>
 
         {/* Search Box */}
@@ -192,18 +235,7 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
                 onKeyDown={() => toggleSelect(area.id)}
               >
                 {isSelected && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="audit__area-check-icon"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="audit__area-check-icon">
                     <circle cx="12" cy="12" r="10" />
                     <path d="m9 12 2 2 4-4" />
                   </svg>
@@ -218,14 +250,24 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
         {/* Footer */}
         <div className="audit__footer">
           <button className="audit__footer-back" onClick={() => navigate(-1)}>
-           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
             Back
           </button>
 
           <div className="audit__footer-right">
             <button className="audit__footer-preview">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#83f981ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-sparkles w-5 h-5 mr-2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
-            Preview</button>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#83f981ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkles w-5 h-5 mr-2">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+                <path d="M20 3v4"></path>
+                <path d="M22 5h-4"></path>
+                <path d="M4 17v2"></path>
+                <path d="M5 18H3"></path>
+              </svg>
+              Preview
+            </button>
+
             <button
               className={`audit__footer-next ${selectedAreas.length === 0 ? "disabled" : ""}`}
               onClick={handleNextStep}
@@ -244,4 +286,3 @@ const Areas: FC<AuditProps> = ({ progress = 33 }) => {
 };
 
 export default Areas;
-

@@ -4,8 +4,11 @@ import "../styles/Records.css";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "../styles/Sidebar.css";
-import Stat_btn from "../components/Stat_btn";
+import StatButtons  from "../components/StatButtons ";
 import "../styles/navbar-progress.css";
+
+import Upload from "../Pages/Upload";
+
 
 interface AuditProps {
   progress?: number; // Progress percentage (0-100)
@@ -70,26 +73,9 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
           item.key === "records" ? { ...item, count: updated.length } : item
         )
       );
-
       setSelectedRecordsCount(updated.length);
-      // const newProgress = 89 + updated.length * 2;
-      // setLocalProgress(Math.min(newProgress, 100));
       return updated;
     });
-  };
-
-  // const handleClear = () => {
-  //   setSelectedRecords([]);
-  //   setChecklistItems((prevItems) =>
-  //     prevItems.map((item) =>
-  //       item.key === "records" ? { ...item, count: 0 } : item
-  //     )
-  //   );
-  //   setSelectedRecordsCount(0);
-  // };
-
-  const handleUploadClick = () => {
-    alert("Upload button clicked!");
   };
 
   const handleDashboardClick = () => {
@@ -97,13 +83,22 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
   };
 
   const handleNextStep = () => {
-    // setLocalProgress((prev) => Math.min(prev + 10, 100));
     navigate("/Summary");
   };
 
   const filteredRecords = RecordsList.filter((record) =>
     record.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+    const [showUpload, setShowUpload] = useState(false);
+
+  const handleUploadClick = () => {
+    setShowUpload(true); // show modal
+  };
+
+  const handleCloseUpload = () => {
+    setShowUpload(false); // close modal
+  };
 
   return (
     <div className="Records">
@@ -126,7 +121,7 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
                   height="36"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="#fff"
                   strokeWidth={2}
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -146,13 +141,13 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
 
             <div className="Records-header-right" style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <button type="button" className="Records-dashboard-btn" onClick={handleDashboardClick}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#69f450ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect width="7" height="9" x="3" y="3" rx="1"></rect>
                   <rect width="7" height="5" x="14" y="3" rx="1"></rect>
                   <rect width="7" height="9" x="14" y="12" rx="1"></rect>
                   <rect width="7" height="5" x="3" y="16" rx="1"></rect>
                 </svg>
-                <span>Dashboard</span>
+                <span style={{color:"#69f450ff"}}>Dashboard</span>
               </button>
               <img
                 className="Records-user-avatar"
@@ -176,7 +171,7 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
 
         {/* Stat Buttons */}
         <div className="button-container">
-          <Stat_btn selectedRecordsCount={selectedRecordsCount} />
+          <StatButtons  selectedRecordsCount={selectedRecordsCount} />
         </div>
 
         {/* Section Title */}
@@ -212,15 +207,56 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
               />
             </div>
           </div>
-
+        
+        
+        <div>
           <button type="button" className="upload-btn" onClick={handleUploadClick}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 5 17 10" />
-              <line x1="12" y1="5" x2="12" y2="19" />
-            </svg>
-            <span>Upload</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#0d9488"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 5 17 10" />
+          <line x1="12" y1="5" x2="12" y2="19" />
+        </svg>
+        <span style={{ color: "#0d9488", marginLeft: "6px" }}>Upload</span>
+      </button>  
+      </div>
+      {showUpload && 
+      <Upload onClose={handleCloseUpload} />}
+        </div>
+
+          <div className="Records-Forms">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+          <h3>Records & Forms</h3>
+          <span>{selectedRecords.length} selected</span>
+          {selectedRecords.length > 0 && ( 
+          <button className="Records-clear-btn" data-testid="button-deselect-Records">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#0ee2d1ff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="Records-clear-icon">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m15 9-6 6"></path>
+            <path d="m9 9 6 6"></path>
+          </svg>
+             Clear
           </button>
+          )}
         </div>
 
         {/* Records Grid */}
@@ -233,13 +269,17 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
                 className={`Records-card ${isSelected ? "selected" : ""}`}
                 onClick={() => toggleSelect(record.id)}
                 role="button"
-                tabIndex={0}
-              >
+                tabIndex={0}>
+
                 <div className="Records-content">
+                  <div style={{width: "40px",height: "40px",backgroundColor: "#ccfbf1",color: "#2a6a40ff", borderRadius: "10px",display: "flex",alignItems: "center",justifyContent: "center",}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-folder w-5 h-5 text-teal-600"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>
+                    </div>
+                    <div>
                   <h3>{record.title}</h3>
                   <p>{record.description}</p>
-                </div>
-                {isSelected && (
+                  </div>
+                  {isSelected && (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="22"
@@ -255,7 +295,9 @@ const Records: FC<AuditProps> = ({ progress = 85 }) => {
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="m9 12 2 2 4-4"></path>
                   </svg>
+                  
                 )}
+              </div>
               </div>
             );
           })}
